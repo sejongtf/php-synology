@@ -30,7 +30,7 @@ use Sejongtf\Synology\Services\Api\Auth;
  * 인증에 대한 역할 분담이 중요하다:
  *
  * - **`_sid` 는 이 클래스가 붙이지 않는다.** `Api::raw()` 가 붙인다.
- *   `$auth = false` 인 API(`SYNO.Chat.External` 의 봇 토큰 인증, `SYNO.API.Info` 의
+ *   `const AUTH = false` 인 API(`SYNO.Chat.External` 의 봇 토큰 인증, `SYNO.API.Info` 의
  *   로그인 이전 조회)가 있어서, 세션이 있다고 무조건 붙이면 그 의도가 깨진다.
  *   이 클래스는 세션이 어디 있는지만 알려 준다(`getSessionId()`).
  * - **`SynoToken` 은 이 클래스가 붙인다.** 단, `_sid` 가 이미 실린 요청에만 붙인다.

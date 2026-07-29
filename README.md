@@ -27,8 +27,9 @@ PHP 8.2 이상. 런타임 의존성은 PSR 인터페이스 세 개(`psr/http-mes
 `symfony/http-client nyholm/psr7` 를 넣는다.
 
 `php-http/discovery` 는 **설치된 구현을 찾아 줄 뿐 구현을 제공하지 않는다.** 구현체 없이
-이것만 넣으면 설치는 조용히 되고 첫 요청에서 `Http\Discovery\Exception\NotFoundException`
-이 난다.
+이것만 넣으면 설치는 조용히 되고, `Synology` 를 **만드는 순간**
+`Http\Discovery\Exception\NotFoundException` 이 난다(탐색은 첫 요청이 아니라
+`withSession()`/`withStore()`/`connect()` 안에서 일어난다).
 
 ### 자동 탐색을 쓰고 싶지 않다면
 
@@ -49,7 +50,8 @@ $syno = Synology::withSession($url, $sid, new Client, new HttpFactory);
 $syno = Synology::withSession($url, $sid, $http, $requestFactory, $streamFactory);
 ```
 
-없이 생략하면 무엇을 설치해야 하는지 알려 주는 `RuntimeException` 이 난다.
+직접 넘기지도 않고 `php-http/discovery` 도 없으면, 무엇을 설치해야 하는지 알려 주는
+`RuntimeException` 이 역시 생성 시점에 난다.
 
 ## 세션 얻기
 
@@ -85,12 +87,44 @@ $syno = Synology::connect($url, 'user', 'pass', otpCode: '123456');
 ```
 
 **실제 로그인은 첫 요청 때 일어난다.** 서비스 컨테이너 부팅 중에 네트워크를 때리지 않기
-위해서다. `rememberDevice: true` 로 device token 을 받아 두면 다음부터 OTP 를 건너뛸 수 있다.
+위해서다.
 
 세션이 만료되면(오류 106/107/119) **자격증명이 있을 때만** 한 번 다시 로그인하고 요청을
 재시도한다. sid 만 주입한 경우 라이브러리에는 다시 로그인할 방법이 없으므로 오류가 그대로
 돌아온다 — 소비자가 받아서 직접 갱신하면 된다. 이 오류는 어느 API 에서 나오든
 `AuthException` 계열이라 `catch (AuthException)` 하나로 처리된다.
+
+### 2단계 인증
+
+`otpCode` 는 **첫 로그인에서 한 번만** 쓰인다. TOTP 코드는 일회용이라, 통과하고 나면
+버리고 이후 재로그인에는 싣지 않는다. 새 코드로 다시 시도하려면 직접 넘긴다.
+
+```php
+try {
+    $syno->contacts->contact->list(['addressbook_id' => 1]);
+} catch (AuthException $e) {
+    if ($e->requiresOtp()) {                       // 403/406
+        $syno->authenticator()->login($codeFromUser);
+    }
+}
+```
+
+`rememberDevice: true` 로 로그인하면 응답에 device token(`did`)이 딸려 와
+`$session->did` 에 담긴다. **이후 로그인에는 라이브러리가 알아서 실어 준다** — 세션이
+만료돼 다시 로그인할 때도 그 값을 쓰므로 OTP 를 다시 묻지 않는다. 만료되는 건 세션이지
+기기 등록이 아니기 때문이다.
+
+단, `did` 는 세션과 함께 저장소에 들어간다. 기본값인 프로세스 메모리 저장소로는 프로세스가
+끝나면 같이 사라지므로, **요청 간에 유지하려면 세션을 저장소에 두거나**(`store:`)
+`did` 를 따로 보관해 `deviceId` 로 넘긴다.
+
+```php
+$syno = Synology::connect($url, 'user', 'pass',
+    otpCode: '123456',
+    rememberDevice: true,
+    store: $store,          // 이 저장소에 sid 와 did 가 함께 남는다
+);
+```
 
 ## 호출하기
 
@@ -167,13 +201,16 @@ try {
 DSM 은 오류 코드 표를 여러 벌 쓰고 숫자가 겹친다(로그인 400 과 파일 연산 400 은 다른
 오류다). 그래서 예외 클래스가 표 단위로 나뉘어 있다.
 
-| 예외 | 표 |
-|---|---|
-| `ApiException` | 공통 100–160 |
-| `AuthException` | 로그인 400–410, 그리고 세션 만료 106/107/119 |
-| `FileOperationException` | 파일 연산 400–421, 599 |
-| `Services\Calendar\CalendarException` | 같은 코드에 Calendar 가이드 문구 |
-| `TransportException` | 응답이 오기 전 실패(DNS, 연결 거부, TLS) |
+| 예외 | 표 | 언제 |
+|---|---|---|
+| `ApiException` | 공통 100–160 | 기본값 |
+| `AuthException` | 로그인 400–410, 그리고 세션 만료 106/107/119 | `SYNO.API.Auth`, 그리고 어느 API 든 106/107/119 |
+| `FileOperationException` | 파일 연산 400–421, 599 | `CalendarException` 의 부모. 직접 선택되지는 않는다 |
+| `Services\Calendar\CalendarException` | 같은 코드에 Calendar 가이드 문구 | `SYNO.Cal.*` |
+| `TransportException` | — | 응답이 오기 전 실패(DNS, 연결 거부, TLS) |
+
+`ApiException` 계열은 전부 `RequestException` 을 상속하고 `$e->response` 로 PSR-7 응답을
+들고 있다. `TransportException` 만 그 밖에 있다 — 그 단계에는 응답 자체가 없다.
 
 ## 지원하는 서비스
 
@@ -250,12 +287,19 @@ api=SYNO.Contacts.Contact&version=2&method=list&addressbook_id=3&_sid=…
 이 패키지에는 멀티파트 전송이 없다. 그래서 `SYNO.Personal.Profile.Photo` 의 `upload` 처럼
 DSM 이 광고하는 업로드 메서드는 일부러 빼 두었다 — 부르면 `BadMethodCallException` 이 난다.
 
-`Contracts\Connection` 을 직접 구현한다면 DSM 의 제약 둘을 지켜야 한다.
+`Contracts\Connection` 을 직접 구현한다면 지켜야 할 것들이 있다. 앞의 둘은 DSM 의
+제약이고, 뒤의 둘은 이 패키지와의 역할 분담이다.
 
 - `SynoToken` 은 **본문에 넣으면 안 된다.** CSRF 검사가 쿼리스트링과 `X-SYNO-TOKEN`
   헤더만 읽어서 119(SID not found)로 실패한다.
 - 본문이 빈 POST 는 라우팅이 쿼리에 있어도 오류 101 로 거절된다. `api` `version`
   `method` 를 본문에 두면 인자 없는 호출에서도 본문이 비지 않는다.
+- 넘어오는 `$params` 에서 **배열은 이미 JSON 문자열이다**(`Api::raw()` 가 한다). 다시
+  인코딩하면 이중 인코딩이 된다. 반대로 bool 과 null 은 PHP 값 그대로 올 수 있으므로
+  구현이 처리해야 한다 — bool 은 `'true'`/`'false'` 문자열로, null 은 아예 빼는 게 맞다
+  (`http_build_query` 에 그냥 넘기면 `1`/`0` 이 되어 DSM 이 잘못 읽는다).
+- `_sid` 는 `Api::raw()` 가 넣어 주고, 세션 만료 재시도는 구현 몫이다. 기본
+  `Http\Connection` 은 `onSessionExpired()` 콜백이 있을 때만 한 번 재시도한다.
 
 ## 테스트
 

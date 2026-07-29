@@ -25,9 +25,14 @@ interface Connection
     /**
      * DSM 에 요청 하나를 보낸다.
      *
-     * `$params` 의 값은 이미 문자열로 다듬어져 온다 — 배열을 JSON 으로 바꾸는 것도,
-     * bool 을 `'true'`/`'false'` 로 바꾸는 것도 `Api::raw()` 가 끝내고 넘긴다.
-     * 구현이 다시 손댈 필요는 없다.
+     * **배열은 이미 JSON 문자열로 바뀌어 온다.** `Api::raw()` 가 그 일만 하고 넘기므로
+     * 구현이 다시 인코딩하면 이중 인코딩이 된다.
+     *
+     * 나머지 값은 PHP 타입 그대로다. Api 클래스들이 `Concerns\NormalizesParams::asBool()`
+     * 로 bool 을 미리 `'true'`/`'false'` 로 바꿔 두긴 하지만 그건 규약이 아니라 관례라서,
+     * bool 과 null 을 어떻게 실을지는 구현이 정해야 한다. 기본 구현은
+     * `Http\Connection::prepare()` 에서 bool 을 `'true'`/`'false'` 로 바꾸고 null 은 뺀다
+     * (`http_build_query` 에 bool 을 그냥 넘기면 `1`/`0` 이 되어 DSM 이 잘못 읽는다).
      *
      * @param  array<string, mixed>  $params
      */
@@ -36,7 +41,7 @@ interface Connection
     /**
      * 지금 세션의 sid. 없으면 null.
      *
-     * `_sid` 를 실제로 붙이는 건 `Api::raw()` 다 — `$auth = false` 인 API 는 세션이
+     * `_sid` 를 실제로 붙이는 건 `Api::raw()` 다 — `const AUTH = false` 인 API 는 세션이
      * 있어도 붙이면 안 되기 때문에, 이 메서드는 알려 주기만 한다.
      */
     public function getSessionId(): ?string;

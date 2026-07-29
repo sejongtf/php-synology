@@ -37,7 +37,7 @@ src/
   Synology.php      entry point
   Api.php           base class for one DSM endpoint
   Service.php       base class for a group of endpoints
-  Auth/             Session, SessionStore implementations, Authenticator, Credentials
+  Auth/             Session, SessionStore implementations (InMemory/Callable/Authenticating), Authenticator, Credentials
   Concerns/         shared Api traits
   Contracts/        Connection, SessionStore — the only two interfaces left
   Exceptions/       error-code tables
@@ -60,7 +60,7 @@ Two name pairs to keep straight:
 
 **Service** (`src/Service.php`) — a group of DSM APIs. Subclasses declare only a `$apis` map of `'snake_name' => Api::class`; the base resolves and **caches** instances (`$resolved`), exposed via `__get` and `ArrayAccess` (`$chat->channel`, `$chat['channel']`). Two invariants: `$apis` (definitions) is never overwritten by `$resolved` (instances), and `setConnection()` re-injects into cached APIs, dropping any that lack `setConnection()` so they get rebuilt.
 
-**Api** (`src/Api.php`) — one DSM endpoint. Subclasses set `const API_NAME = 'SYNO.X.Y'` and `protected $methods = ['method' => version]`. `raw()` is the single request path: resolves the version (explicit → `$methods` → 1), appends `_sid` when `$auth` is on, and **JSON-encodes array param values only** — strings pass through untouched, so never pre-encode *and* pass an array. `request()` is literally `raw()?->data()` — README covers when a consumer should reach for `raw()` instead. `__call()` falls back to `$methods`, so any declared method is callable without an explicit PHP method.
+**Api** (`src/Api.php`) — one DSM endpoint. Subclasses set `const API_NAME = 'SYNO.X.Y'` and `protected $methods = ['method' => version]`. `raw()` is the single request path: resolves the version (explicit → `$methods` → 1), appends `_sid` when `const AUTH` is true, and **JSON-encodes array param values only** — strings pass through untouched, so never pre-encode *and* pass an array. Everything else (`bool`, `null`) reaches the connection as a PHP value; `Http\Connection::prepare()` is what turns bools into `'true'`/`'false'` and drops nulls. `request()` is literally `raw()?->data()` — README covers when a consumer should reach for `raw()` instead. `__call()` falls back to `$methods`, so any declared method is callable without an explicit PHP method.
 
 > **Do not "fix" string params into JSON.** The official examples quote them (`taskid="51CB…"`, `mode="open"`) and `SYNO.API.Info` advertises `requestFormat: "JSON"`, so blanket encoding looks correct. It isn't needed: an integration run against real hardware confirmed DSM handles raw strings. `ApiRegistry::requiresJsonParams()` exposes the flag if some future API ever does need it.
 
@@ -123,6 +123,8 @@ Two things stop that from recursing, and both are easy to break:
 ### Errors
 
 Hierarchy: `Exceptions\RequestException` (holds the PSR response) → `ApiException` → `FileOperationException` → `Services\Calendar\CalendarException`, which overrides the table because the Calendar guide words the same codes differently. `TransportException` sits apart — failures before any response exists. README lists which code table each class carries.
+
+`ErrorMapper` never selects `FileOperationException` itself: the package ships no FileStation service, so today the file-operation table is reachable only through `CalendarException`. It stays a class of its own because that table is shared, not Calendar's — a FileStation service would map straight to it.
 
 The one thing not to "simplify": **`AuthException`'s login table (400–410) collides numerically with the file-operation table, which is why the two cannot be merged.**
 
