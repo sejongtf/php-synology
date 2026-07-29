@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **`README.md` is the consumer-facing doc** — installation, the three ways to get a session, the calling convention, error handling. Read it for how the library is *used*; this file is only what you need to *change* it. When behaviour changes, both move.
 
+`README.ko.md` is the Korean translation of `README.md` and the two are kept in sync **in the same commit** — English is the source, Korean follows it. Nothing links to it but `README.md`'s header line, so a translation left behind goes unnoticed. No other file changes language: code comments stay Korean (see Conventions), this file stays English.
+
 ## What this is
 
 `sejongtf/synology` — a PHP 8.2+ Composer **library** (no application, no framework bootstrap) wrapping the Synology DSM Web API. PSR-4: `Sejongtf\Synology\` → `src/`.

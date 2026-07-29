@@ -1,9 +1,14 @@
 # sejongtf/synology
 
-[![tests](https://github.com/sejongtf/php-synology/actions/workflows/tests.yml/badge.svg)](https://github.com/sejongtf/php-synology/actions/workflows/tests.yml)
+**English** · [한국어](README.ko.md)
 
-Synology DSM Web API 를 감싸는 PHP 클라이언트. 프레임워크에 묶이지 않고, HTTP 전송 구현체도
-고르지 않는다.
+[![tests](https://img.shields.io/github/actions/workflow/status/sejongtf/php-synology/tests.yml?branch=0.x&label=tests)](https://github.com/sejongtf/php-synology/actions/workflows/tests.yml)
+[![packagist](https://img.shields.io/packagist/v/sejongtf/synology)](https://packagist.org/packages/sejongtf/synology)
+[![php](https://img.shields.io/packagist/dependency-v/sejongtf/synology/php)](composer.json)
+[![license](https://img.shields.io/packagist/l/sejongtf/synology)](LICENSE)
+
+A PHP client for the Synology DSM Web API. It is tied to no framework, and it picks no HTTP
+transport for you.
 
 ```php
 $syno = Synology::withSession('https://nas:5001', $sid);
@@ -12,28 +17,29 @@ $syno->contacts->contact->list(['addressbook_id' => 1]);
 $syno->chat->channel->list();
 ```
 
-## 설치
+## Installation
 
-**HTTP 구현체를 반드시 같이 설치한다.**
+**Install an HTTP implementation alongside it.**
 
 ```bash
 composer require sejongtf/synology guzzlehttp/guzzle php-http/discovery
 ```
 
-PHP 8.2 이상. 런타임 의존성은 PSR 인터페이스 세 개(`psr/http-message`, `psr/http-client`,
-`psr/http-factory`)뿐이고 **HTTP 구현체는 들어 있지 않다.** 위 명령의 Guzzle 이 그 자리를
-채운다 — 하나로 PSR-18 클라이언트(`GuzzleHttp\Client`)와 PSR-17 팩토리
-(`GuzzleHttp\Psr7\HttpFactory`)가 같이 들어온다. 더 가벼운 조합을 원하면 Guzzle 자리에
-`symfony/http-client nyholm/psr7` 를 넣는다.
+PHP 8.2+. The runtime dependencies are three PSR interface packages (`psr/http-message`,
+`psr/http-client`, `psr/http-factory`) and **no HTTP implementation is bundled.** Guzzle fills
+that slot in the command above — one package brings both the PSR-18 client
+(`GuzzleHttp\Client`) and the PSR-17 factory (`GuzzleHttp\Psr7\HttpFactory`). For a lighter
+combination, put `symfony/http-client nyholm/psr7` where Guzzle is.
 
-`php-http/discovery` 는 **설치된 구현을 찾아 줄 뿐 구현을 제공하지 않는다.** 구현체 없이
-이것만 넣으면 설치는 조용히 되고, `Synology` 를 **만드는 순간**
-`Http\Discovery\Exception\NotFoundException` 이 난다(탐색은 첫 요청이 아니라
-`withSession()`/`withStore()`/`connect()` 안에서 일어난다).
+`php-http/discovery` **only finds an installed implementation; it does not provide one.**
+Installing it without an implementation succeeds quietly, and then
+`Http\Discovery\Exception\NotFoundException` is thrown the moment you **construct** `Synology`
+— discovery runs inside `withSession()`/`withStore()`/`connect()`, not on the first request.
 
-### 자동 탐색을 쓰고 싶지 않다면
+### If you would rather not use discovery
 
-`php-http/discovery` 를 빼고 직접 넘긴다. 전부 선택 인자라, 넘기면 탐색을 건너뛴다.
+Drop `php-http/discovery` and pass the implementations yourself. They are all optional
+arguments, and passing them skips discovery.
 
 ```php
 use GuzzleHttp\Client;
@@ -42,62 +48,63 @@ use GuzzleHttp\Psr7\HttpFactory;
 $syno = Synology::withSession($url, $sid, new Client, new HttpFactory);
 ```
 
-요청 본문을 만들어야 하므로 PSR-17 **스트림** 팩토리도 필요하다. Guzzle 의
-`HttpFactory` 처럼 한 클래스가 요청 팩토리와 스트림 팩토리를 겸하는 경우가 대부분이라
-위처럼 두 개만 넘겨도 된다. 갈라져 있는 구현체라면 마지막 자리에 따로 준다.
+Building the request body needs a PSR-17 **stream** factory too. In most implementations a
+single class serves as both the request factory and the stream factory — Guzzle's `HttpFactory`
+does — so the two arguments above are usually enough. If yours are separate classes, pass the
+stream factory last.
 
 ```php
 $syno = Synology::withSession($url, $sid, $http, $requestFactory, $streamFactory);
 ```
 
-직접 넘기지도 않고 `php-http/discovery` 도 없으면, 무엇을 설치해야 하는지 알려 주는
-`RuntimeException` 이 역시 생성 시점에 난다.
+If you pass nothing and `php-http/discovery` is absent, a `RuntimeException` naming what to
+install is thrown, again at construction time.
 
-## 세션 얻기
+## Getting a session
 
-세 가지 방법이 있고 **셋 다 동등하다. 로그인은 그중 하나일 뿐이다.**
+There are three ways, and **all three are equal. Logging in is merely one of them.**
 
-### 이미 가진 sid 를 주입한다
+### Inject a sid you already have
 
-로그인 요청이 한 번도 나가지 않는다. sid 의 출처는 묻지 않는다.
+No login request is ever sent. Where the sid came from is not this library's business.
 
 ```php
 $syno = Synology::withSession($url, $sid);
 $syno = Synology::withSession($url, new Session($sid, synoToken: $token));
 ```
 
-### 외부 저장소에서 읽고 쓴다
+### Read and write it through your own store
 
 ```php
 use Sejongtf\Synology\Auth\CallableStore;
 
 $syno = Synology::withStore($url, new CallableStore(
-    get: fn () => $cache->get('syno.session'),          // Session | array | sid 문자열 | null
+    get: fn () => $cache->get('syno.session'),          // Session | array | sid string | null
     put: fn (Session $s) => $cache->set('syno.session', $s->toArray()),
 ));
 ```
 
-`Contracts\SessionStore` 를 직접 구현해도 된다. 기본 구현으로 `InMemoryStore` 와
-`CallableStore` 가 있다.
+You can implement `Contracts\SessionStore` directly. `InMemoryStore` and `CallableStore` ship
+as the built-in implementations.
 
-### 자격증명으로 로그인한다
+### Log in with credentials
 
 ```php
 $syno = Synology::connect($url, 'user', 'pass', otpCode: '123456');
 ```
 
-**실제 로그인은 첫 요청 때 일어난다.** 서비스 컨테이너 부팅 중에 네트워크를 때리지 않기
-위해서다.
+**The login actually happens on the first request**, so that booting a service container never
+hits the network.
 
-세션이 만료되면(오류 106/107/119) **자격증명이 있을 때만** 한 번 다시 로그인하고 요청을
-재시도한다. sid 만 주입한 경우 라이브러리에는 다시 로그인할 방법이 없으므로 오류가 그대로
-돌아온다 — 소비자가 받아서 직접 갱신하면 된다. 이 오류는 어느 API 에서 나오든
-`AuthException` 계열이라 `catch (AuthException)` 하나로 처리된다.
+When a session expires (errors 106/107/119) the library logs in again once and retries the
+request — **but only when it has credentials.** If you injected a bare sid there is no way for
+it to log in again, so the error surfaces as-is and refreshing is yours to do. Whichever API
+raised it, that error is an `AuthException`, so a single `catch (AuthException)` covers it.
 
-### 2단계 인증
+### Two-factor authentication
 
-`otpCode` 는 **첫 로그인에서 한 번만** 쓰인다. TOTP 코드는 일회용이라, 통과하고 나면
-버리고 이후 재로그인에는 싣지 않는다. 새 코드로 다시 시도하려면 직접 넘긴다.
+`otpCode` is used **once, on the first login.** A TOTP code is single-use, so it is discarded
+after it succeeds and never replayed on a later login. To retry with a fresh code, pass one in.
 
 ```php
 try {
@@ -109,58 +116,60 @@ try {
 }
 ```
 
-`rememberDevice: true` 로 로그인하면 응답에 device token(`did`)이 딸려 와
-`$session->did` 에 담긴다. **이후 로그인에는 라이브러리가 알아서 실어 준다** — 세션이
-만료돼 다시 로그인할 때도 그 값을 쓰므로 OTP 를 다시 묻지 않는다. 만료되는 건 세션이지
-기기 등록이 아니기 때문이다.
+Logging in with `rememberDevice: true` returns a device token (`did`) in the response, carried
+on `$session->did`. **The library sends it on subsequent logins for you** — including the
+re-login after an expiry, so you are not asked for an OTP again. What expires is the session,
+not the device registration.
 
-단, `did` 는 세션과 함께 저장소에 들어간다. 기본값인 프로세스 메모리 저장소로는 프로세스가
-끝나면 같이 사라지므로, **요청 간에 유지하려면 세션을 저장소에 두거나**(`store:`)
-`did` 를 따로 보관해 `deviceId` 로 넘긴다.
+The `did` is stored with the session, though. The default store lives in process memory and
+dies with the process, so to keep it **across requests either put the session in a store**
+(`store:`) or keep the `did` yourself and pass it as `deviceId`.
 
 ```php
 $syno = Synology::connect($url, 'user', 'pass',
     otpCode: '123456',
     rememberDevice: true,
-    store: $store,          // 이 저장소에 sid 와 did 가 함께 남는다
+    store: $store,          // sid and did both land in this store
 );
 ```
 
-## 호출하기
+## Making calls
 
-`서비스 → API → 메서드` 세 단계다. 이름은 DSM 의 snake_case 를 그대로 따르고,
-PHP 쪽에서 익숙한 camelCase 도 받는다.
+Three steps: `service → API → method`. Names follow DSM's snake_case as-is, and the camelCase
+that reads naturally in PHP is accepted too.
 
 ```php
 $syno->mail_account->mail->send([...]);
-$syno->mailAccount->mail->send([...]);   // 같다
+$syno->mailAccount->mail->send([...]);   // the same
 ```
 
-`$methods` 에 선언된 DSM 메서드는 PHP 메서드가 없어도 매직 호출로 그냥 부를 수 있다.
-파라미터가 많거나 자주 쓰는 것만 실제 시그니처가 채워져 있다.
+Any DSM method declared in `$methods` is callable through the magic call even without a PHP
+method behind it. Real signatures are filled in only where a call takes many parameters or gets
+used often.
 
 ```php
-$syno->chat->channel->list();                       // 매직 호출
-$syno->contacts->contact->get([1, 2, 3]);           // 손으로 채운 시그니처
+$syno->chat->channel->list();                       // magic call
+$syno->contacts->contact->get([1, 2, 3]);           // hand-written signature
 ```
 
-세션이 필요 없는 API 도 있다. Chat 의 봇 토큰 계열이 그렇다.
+Some APIs need no session at all — Chat's bot-token family, for one.
 
 ```php
-$syno->chat->external->incoming($token, '안녕하세요');
+$syno->chat->external->incoming($token, 'Hello');
 ```
 
-### 응답
+### Responses
 
-API 는 응답 봉투의 `data` 를 **배열**로 돌려준다. `data` 키 자체가 없으면 `null` 이라
-"성공했지만 데이터가 빈 것"(`[]`)과 구분된다.
+An API returns the `data` of the response envelope as an **array**. When the `data` key is
+absent altogether you get `null`, which distinguishes it from "succeeded with empty data"
+(`[]`).
 
 ```php
 $data = $syno->calendar->event->list([...]);   // array|null
 ```
 
-헤더나 원본 본문이 필요하거나, "성공했지만 데이터가 없음" 과 "데이터 키 자체가 없음" 을
-구분해야 하면 `raw()` 로 응답 객체를 통째로 받는다.
+When you need headers or the raw body, or you need to tell "succeeded with no data" from "no
+data key at all", take the whole response object with `raw()`.
 
 ```php
 $response = $syno->chat->post->raw('list', params: [...]);
@@ -168,21 +177,21 @@ $response = $syno->chat->post->raw('list', params: [...]);
 $response->success();
 $response->hasData();
 $response->header('Content-Type');
-$response->toPsrResponse()->getBody();   // 바이너리는 이쪽으로
+$response->toPsrResponse()->getBody();   // binary goes through here
 ```
 
-**타입이 있는 엔티티 계층은 없다.** 날짜·소수 캐스팅이 필요하면 소비자 쪽에 둔다.
+**There is no typed entity layer.** Casting dates and decimals belongs on the consumer side.
 
-### 오류
+### Errors
 
-**일반 호출은 실패해도 예외를 던지지 않는다.** DSM 이 오류를 돌려주면 그냥 `null` 이 온다.
-예외로 받고 싶으면 `raw()` 로 응답을 꺼내 `throw()` 를 부른다.
+**An ordinary call does not throw on failure.** When DSM returns an error you simply get
+`null`. To get an exception instead, take the response with `raw()` and call `throw()`.
 
 ```php
 use Sejongtf\Synology\Exceptions\ApiException;
 use Sejongtf\Synology\Exceptions\AuthException;
 
-$syno->contacts->contact->list(['addressbook_id' => 1]);   // 실패하면 null
+$syno->contacts->contact->list(['addressbook_id' => 1]);   // null on failure
 
 try {
     $data = $syno->contacts->contact
@@ -190,31 +199,32 @@ try {
         ->throw()
         ->data();
 } catch (AuthException $e) {
-    // 로그인 실패, 2단계 인증 필요, 세션 만료(106/107/119)
+    // login failure, 2FA required, session expiry (106/107/119)
 } catch (ApiException $e) {
-    // 그 밖의 DSM 오류
-    $e->getErrorCode();   // DSM 오류 코드. getCode() 가 아니다
-    $e->response;         // PSR-7 응답
+    // any other DSM error
+    $e->getErrorCode();   // the DSM error code — not getCode()
+    $e->response;         // the PSR-7 response
 }
 ```
 
-DSM 은 오류 코드 표를 여러 벌 쓰고 숫자가 겹친다(로그인 400 과 파일 연산 400 은 다른
-오류다). 그래서 예외 클래스가 표 단위로 나뉘어 있다.
+DSM uses several error-code tables and the numbers collide (400 on login and 400 on a file
+operation are different errors). That is why the exception classes are split one per table.
 
-| 예외 | 표 | 언제 |
+| Exception | Table | When |
 |---|---|---|
-| `ApiException` | 공통 100–160 | 기본값 |
-| `AuthException` | 로그인 400–410, 그리고 세션 만료 106/107/119 | `SYNO.API.Auth`, 그리고 어느 API 든 106/107/119 |
-| `FileOperationException` | 파일 연산 400–421, 599 | `CalendarException` 의 부모. 직접 선택되지는 않는다 |
-| `Services\Calendar\CalendarException` | 같은 코드에 Calendar 가이드 문구 | `SYNO.Cal.*` |
-| `TransportException` | — | 응답이 오기 전 실패(DNS, 연결 거부, TLS) |
+| `ApiException` | common 100–160 | the default |
+| `AuthException` | login 400–410, plus session expiry 106/107/119 | `SYNO.API.Auth`, and 106/107/119 from any API |
+| `FileOperationException` | file operations 400–421, 599 | parent of `CalendarException`; never selected on its own |
+| `Services\Calendar\CalendarException` | same codes, worded by the Calendar guide | `SYNO.Cal.*` |
+| `TransportException` | — | failure before any response (DNS, refused connection, TLS) |
 
-`ApiException` 계열은 전부 `RequestException` 을 상속하고 `$e->response` 로 PSR-7 응답을
-들고 있다. `TransportException` 만 그 밖에 있다 — 그 단계에는 응답 자체가 없다.
+Every `ApiException` descends from `RequestException` and carries the PSR-7 response on
+`$e->response`. Only `TransportException` sits outside that — at that stage there is no
+response to hold.
 
-## 지원하는 서비스
+## Supported services
 
-| 서비스 | 접근 | API 수 |
+| Service | Access | APIs |
 |---|---|---|
 | Chat | `$syno->chat` | 36 |
 | Calendar | `$syno->calendar` | 16 |
@@ -223,55 +233,57 @@ DSM 은 오류 코드 표를 여러 벌 쓰고 숫자가 겹친다(로그인 400
 | MailPlusServer | `$syno->mail_plus_server` | 14 |
 | Personal | `$syno->application` `$syno->mail_account` `$syno->notification` `$syno->profile` | 16 |
 
-`resources/registry/` 에 DSM 이 실제로 광고하는 API 목록(이름·버전·메서드)이 덤프돼 있다.
-필요한 API 가 빠져 있으면 `tools/generate-apis.php` 로 클래스를 생성할 수 있다.
-MailPlusServer 는 65개 중 대부분이 관리자용 내부 API 라 쓰는 것만 골라 두었다.
+`resources/registry/` holds dumps of the API list DSM actually advertises (names, versions,
+methods). If an API you need is missing, `tools/generate-apis.php` can generate the class. Of
+MailPlusServer's 65 APIs most are administrative internals, so only the ones in use are
+included.
 
-**이 덤프는 특정 시점·특정 NAS 의 스냅샷이다.** 파일마다 뜬 시기가 다르고 어느 DSM
-버전인지도 적혀 있지 않다. DSM 이 올라가면 API 버전이 새로 생기기도 하고, 이름이 같은
-메서드의 파라미터 의미가 버전에 따라 달라지기도 한다. 그러니 여기 적힌 버전 범위를
-계약처럼 믿지 말고, 중요한 호출이라면 아래 디스커버리로 쓰는 NAS 에 직접 확인하는 게
-안전하다.
+**Those dumps are a snapshot of one NAS at one moment.** The files were taken at different
+times and none of them records which DSM version it came from. A DSM upgrade can add API
+versions, and a method that keeps its name can change what its parameters mean from one version
+to the next. So do not treat the version ranges here as a contract — for anything load-bearing,
+confirm it against the NAS you actually talk to, using discovery below.
 
-각 API 클래스가 보내는 버전은 클래스에 적힌 값으로 **고정**돼 있다. 일부러 낮게 묶어 둔
-것도 있다 — 예를 들어 `SYNO.API.Auth` 는 7 이 있어도 6 으로 보낸다. 7 에서 `token`
-메서드가 없어졌기 때문이다. 다른 버전이 필요하면 호출할 때 직접 지정한다.
+The version each API class sends is **pinned** to the value written in the class. Some are
+deliberately held back — `SYNO.API.Auth` sends 6 even though 7 exists, because 7 dropped the
+`token` method. When you need a different version, name it at the call site.
 
 ```php
 $syno->chat->channel->request('list', version: 5, params: [...]);
 ```
 
-## API 디스커버리
+## API discovery
 
-DSM 7 은 대부분의 API 를 `entry.cgi` 하나로 받지만 전부는 아니다. 경로와 버전 범위를
-서버에서 확인하려면:
+DSM 7 serves most APIs through the single `entry.cgi`, but not all of them. To confirm paths
+and version ranges against the server:
 
 ```php
-$syno->discover();          // 전체
+$syno->discover();          // everything
 $syno->discover('SYNO.Chat.Channel');
 ```
 
-하지 않아도 동작한다 — 그 경우 전부 `entry.cgi` 기본값으로 간다.
+It works without this — everything then goes to the `entry.cgi` default.
 
-**버전은 알려만 주고 바꾸지 않는다.** 클래스에 박힌 버전 핀에는 이유가 있어서, 서버가 더
-높은 버전을 광고한다고 그리로 옮기는 건 안전한 동작이 아니다.
+**Versions are reported, never changed.** The version pins in the classes are there for a
+reason, so moving to whatever higher version the server advertises is not a safe thing to do
+automatically.
 
-경로는 **기본 `Http\Connection` 을 쓸 때만** 자동으로 반영된다. `Contracts\Connection` 을
-직접 구현해 넘겼다면 `discover()` 는 조회해서 돌려주기만 하고 아무것도 반영하지 않는다 —
-반영은 그 구현이 할 일이다. 어느 쪽이든 반환된 `ApiRegistry` 로 쓰는 NAS 가 실제로 뭘
-지원하는지 읽을 수 있다.
+Paths are applied automatically **only when you use the shipped `Http\Connection`.** If you
+passed your own implementation of `Contracts\Connection`, `discover()` merely fetches and
+returns — applying the result is that implementation's job. Either way, the returned
+`ApiRegistry` tells you what the NAS in front of you actually supports.
 
 ```php
 $registry = $syno->discover('SYNO.Chat.Channel');
 
-$registry->maxVersion('SYNO.Chat.Channel');   // 이 NAS 가 광고하는 최대 버전
-$registry->path('SYNO.Chat.Channel');         // 실제 경로
+$registry->maxVersion('SYNO.Chat.Channel');   // the highest version this NAS advertises
+$registry->path('SYNO.Chat.Channel');         // the real path
 ```
 
-## 전송 방식
+## On the wire
 
-요청은 **POST** 로 나가고 요청 내용은 전부 `application/x-www-form-urlencoded` 본문에
-담긴다. URL 에 남는 건 `SynoToken` 하나뿐이고, 그것도 세션에 토큰이 있을 때뿐이다.
+Requests go out as **POST** with everything in an `application/x-www-form-urlencoded` body. The
+only thing left in the URL is `SynoToken`, and only when the session has one.
 
 ```
 POST /webapi/entry.cgi
@@ -279,53 +291,57 @@ POST /webapi/entry.cgi
 api=SYNO.Contacts.Contact&version=2&method=list&addressbook_id=3&_sid=…
 ```
 
-`account` `passwd` `otp_code` `_sid` 와 본문 파라미터가 URL 에서 빠지므로 NAS access log
-나 리버스 프록시 로그에 평문으로 남지 않는다. URL 길이 제한(실측 약 8KB)도 걸리지 않는다.
-대신 NAS 쪽 로그에는 어느 API 를 불렀는지 남지 않는다.
+Keeping `account`, `passwd`, `otp_code`, `_sid` and the body parameters out of the URL stops
+them from being logged in the clear by the NAS access log or a reverse proxy. It also clears
+the URL length ceiling (measured at roughly 8 KB). The cost is that NAS-side logs no longer
+show which API was called.
 
-**파일 업로드는 지원하지 않는다.** DSM 의 업로드 API 는 `multipart/form-data` 를 쓰는데
-이 패키지에는 멀티파트 전송이 없다. 그래서 `SYNO.Personal.Profile.Photo` 의 `upload` 처럼
-DSM 이 광고하는 업로드 메서드는 일부러 빼 두었다 — 부르면 `BadMethodCallException` 이 난다.
+**File upload is not supported.** DSM's upload APIs use `multipart/form-data` and this package
+has no multipart transport, so upload methods DSM advertises — `SYNO.Personal.Profile.Photo`'s
+`upload`, for one — are deliberately left out. Calling one raises `BadMethodCallException`.
 
-`Contracts\Connection` 을 직접 구현한다면 지켜야 할 것들이 있다. 앞의 둘은 DSM 의
-제약이고, 뒤의 둘은 이 패키지와의 역할 분담이다.
+Implementing `Contracts\Connection` yourself comes with obligations. The first two are DSM's
+constraints; the last two are the division of labour with this package.
 
-- `SynoToken` 은 **본문에 넣으면 안 된다.** CSRF 검사가 쿼리스트링과 `X-SYNO-TOKEN`
-  헤더만 읽어서 119(SID not found)로 실패한다.
-- 본문이 빈 POST 는 라우팅이 쿼리에 있어도 오류 101 로 거절된다. `api` `version`
-  `method` 를 본문에 두면 인자 없는 호출에서도 본문이 비지 않는다.
-- 넘어오는 `$params` 에서 **배열은 이미 JSON 문자열이다**(`Api::raw()` 가 한다). 다시
-  인코딩하면 이중 인코딩이 된다. 반대로 bool 과 null 은 PHP 값 그대로 올 수 있으므로
-  구현이 처리해야 한다 — bool 은 `'true'`/`'false'` 문자열로, null 은 아예 빼는 게 맞다
-  (`http_build_query` 에 그냥 넘기면 `1`/`0` 이 되어 DSM 이 잘못 읽는다).
-- `_sid` 는 `Api::raw()` 가 넣어 주고, 세션 만료 재시도는 구현 몫이다. 기본
-  `Http\Connection` 은 `onSessionExpired()` 콜백이 있을 때만 한 번 재시도한다.
+- `SynoToken` **must not go in the body.** The CSRF check reads only the query string and the
+  `X-SYNO-TOKEN` header, so a token in the body fails with 119 (SID not found).
+- A POST with an empty body is rejected with error 101 even when the routing keys sit in the
+  query string. Keeping `api`, `version` and `method` in the body means even a parameterless
+  call has a non-empty one.
+- In the `$params` you receive, **arrays are already JSON strings** (`Api::raw()` does that).
+  Encoding them again double-encodes. Bools and nulls, on the other hand, may arrive as plain
+  PHP values and are yours to handle — bools as the strings `'true'`/`'false'`, nulls dropped
+  entirely (handing a bool to `http_build_query` yields `1`/`0`, which DSM misreads).
+- `_sid` is put there by `Api::raw()`, and retrying an expired session is up to the
+  implementation. The shipped `Http\Connection` retries exactly once, and only when an
+  `onSessionExpired()` callback was set.
 
-## 테스트
+## Tests
 
 ```bash
 composer install
 composer test
 ```
 
-기본 테스트 스위트는 네트워크를 타지 않는다. 실기기를 상대로 도는 통합 테스트는
-`phpunit.xml.dist` 를 `phpunit.xml` 로 복사해 `SYNOLOGY_*` 값을 채워야 돌아간다
-(`phpunit.xml` 은 gitignore 대상이라 자격증명이 밖으로 나가지 않는다).
+The default suite never touches the network. The integration tests run against real hardware
+and require copying `phpunit.xml.dist` to `phpunit.xml` and filling in the `SYNOLOGY_*` values
+(`phpunit.xml` is gitignored, so credentials stay local).
 
 ```bash
 composer test:integration
 ```
 
-통합 테스트는 전부 읽기 전용이다.
+Every integration test is read-only.
 
-CI 는 PHP 8.2·8.3·8.4 에서 단위 테스트를 돌리고, 최저 의존성으로도 한 번 더 돌린다
-(`composer.lock` 은 커밋하지 않으므로 매번 새로 푼다). 그 밖에 `composer validate --strict`,
-문법 검사, 코드젠 멱등성을 확인한다.
+CI runs the unit tests on PHP 8.2/8.3/8.4 and once more against the lowest dependencies
+(`composer.lock` is not committed, so every job resolves fresh). It also checks
+`composer validate --strict`, PHP syntax, and codegen idempotency.
 
-## 그 밖에
+## Anything else
 
-코드를 고칠 거라면 [CLAUDE.md](CLAUDE.md) 에 구조와 설계 의도가 정리돼 있다.
+If you are going to change the code, [CLAUDE.md](CLAUDE.md) lays out the structure and the
+design intent behind it.
 
-## 라이선스
+## License
 
 MIT.
