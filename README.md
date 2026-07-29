@@ -104,7 +104,8 @@ raised it, that error is an `AuthException`, so a single `catch (AuthException)`
 ### Two-factor authentication
 
 `otpCode` is used **once, on the first login.** A TOTP code is single-use, so it is discarded
-after it succeeds and never replayed on a later login. To retry with a fresh code, pass one in.
+as soon as it is sent — whether it was accepted or rejected — and never replayed on a later
+login. To retry, pass a fresh code in.
 
 ```php
 try {

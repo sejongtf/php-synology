@@ -276,6 +276,39 @@ class SynologyTest extends TestCase
     }
 
     /**
+     * 거절당한 코드도 소모된다.
+     *
+     * 성공했을 때만 코드를 비우면, 틀린 코드로 404 를 맞은 뒤 그 코드가 남아 다음
+     * 로그인에 그대로 실린다. 계속 404 만 나오고 소비자가 분기해야 할 403(코드 필요)은
+     * 영영 오지 않는다 — 워커가 상주하는 환경에서는 그 상태로 고착된다.
+     */
+    public function test_a_rejected_otp_code_is_consumed_too(): void
+    {
+        $http = FakePsrClient::sequence(
+            '{"success":false,"error":{"code":404}}',    // 코드가 틀렸다
+            '{"success":false,"error":{"code":403}}',    // 코드 없이 나갔으니 "코드 필요"
+        );
+        $syno = Synology::connect(
+            self::URL, 'user', 'pass',
+            otpCode: '123456',
+            http: $http,
+            requests: new Psr17Factory,
+        );
+
+        foreach ([404, 403] as $expected) {
+            try {
+                $syno->contacts->info->get_timezone();
+                $this->fail('AuthException 이 발생해야 한다.');
+            } catch (AuthException $e) {
+                $this->assertSame($expected, $e->getErrorCode());
+            }
+        }
+
+        $this->assertSame('123456', FakePsrClient::paramsOf($http->requests[0])['otp_code']);
+        $this->assertArrayNotHasKey('otp_code', FakePsrClient::paramsOf($http->requests[1]));
+    }
+
+    /**
      * 403 을 잡아 사용자에게 코드를 받고 다시 시도하는 흐름.
      */
     public function test_an_otp_code_can_be_given_for_a_retry(): void

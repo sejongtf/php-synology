@@ -20,12 +20,11 @@ final class Authenticator
     private readonly Auth $api;
 
     /**
-     * 아직 쓰지 않은 OTP 코드.
+     * 아직 보내지 않은 OTP 코드.
      *
-     * 로그인이 한 번 통과하면 버린다. TOTP 코드는 일회용이라, 세션이 만료돼 다시
-     * 로그인할 때 같은 코드를 또 보내면 404(Failed to authenticate 2-factor code)를
-     * 맞는다. 코드를 지워 두면 대신 403(2-factor code required)이 오고, 그게 소비자가
-     * `AuthException::requiresOtp()` 로 새 코드를 받아 재시도할 수 있는 신호다.
+     * 한 번 보내면 성공 여부와 무관하게 버린다. TOTP 코드는 일회용이라 같은 코드를 또
+     * 보내면 404(Failed to authenticate 2-factor code)를 맞는데, 그 404 가 정작 소비자가
+     * `AuthException::requiresOtp()` 로 분기해야 할 403(2-factor code required)을 가린다.
      */
     private ?string $otpCode;
 
@@ -61,11 +60,18 @@ final class Authenticator
      */
     public function login(?string $otpCode = null): Session
     {
+        // 코드는 **보내는 순간** 소모된다. 성공한 뒤에 비우면, 틀린 코드로 404 를 맞았을 때
+        // 그 코드가 남아 다음 로그인에 그대로 실린다 — 계속 404 만 나면서 정작 소비자가
+        // 분기해야 할 403(코드 필요)이 영원히 오지 않는다. 상주 워커(Octane 등)에서는
+        // 그 워커가 새 코드를 받을 기회 없이 고착된다.
+        $otpCode ??= $this->otpCode;
+        $this->otpCode = null;
+
         $data = $this->api->login(
             account: $this->credentials->account,
             passwd: $this->credentials->passwd,
             session: $this->credentials->session,
-            otpCode: $otpCode ?? $this->otpCode,
+            otpCode: $otpCode,
             deviceId: $this->deviceId,
             deviceName: $this->credentials->deviceName,
             enableDeviceToken: $this->credentials->rememberDevice,
@@ -73,9 +79,7 @@ final class Authenticator
 
         $session = Session::fromArray($data ?? []);
 
-        // 여기까지 왔으면 로그인이 통과한 것이다(실패는 Auth::login() 이 예외로 올린다).
-        // 코드는 소모됐고, 새 did 를 받았으면 그걸 들고 간다.
-        $this->otpCode = null;
+        // 새 did 를 받았으면 들고 간다(실패는 Auth::login() 이 예외로 올리므로 여기 못 온다).
         $this->deviceId = $session->did ?? $this->deviceId;
 
         $this->sessions->put($session);
