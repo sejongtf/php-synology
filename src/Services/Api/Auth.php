@@ -29,9 +29,6 @@ class Auth extends Api
     // authLevel 0 — 세션을 쓰지 않는다.
     const AUTH = false;
 
-    /** 문서 권장 버전. */
-    public const RECOMMENDED_VERSION = 6;
-
     /** @var array<string, int> */
     protected array $methods = [
         'login' => 6,

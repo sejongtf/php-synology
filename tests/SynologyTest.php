@@ -9,6 +9,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Sejongtf\Synology\Auth\CallableStore;
+use Sejongtf\Synology\Auth\InMemoryStore;
 use Sejongtf\Synology\Auth\Session;
 use Sejongtf\Synology\Exceptions\AuthException;
 use Sejongtf\Synology\Services\Chat\Chat;
@@ -191,6 +192,113 @@ class SynologyTest extends TestCase
             $this->assertTrue($e->requiresOtp());
             $this->assertStringContainsString('2-factor authentication code required', $e->getMessage());
         }
+    }
+
+    // --- (C-2) 2단계 인증: device token 과 OTP 코드 ---------------------------
+
+    /**
+     * 만료되는 건 세션이지 기기 등록이 아니다.
+     *
+     * 로그인 응답의 `did` 를 챙겨 두지 않으면, 2단계 인증이 강제된 계정에서 세션이
+     * 만료됐을 때 재로그인이 OTP 를 요구해 실패한다. 자동 재시도 경로가 통째로 죽는다.
+     */
+    public function test_the_device_token_from_a_login_is_reused_on_the_next_one(): void
+    {
+        $http = FakePsrClient::sequence(
+            self::LOGIN_OK,                              // did: DEVICE
+            '{"success":false,"error":{"code":106}}',
+            self::LOGIN_OK,
+            self::CALL_OK,
+        );
+        $syno = Synology::connect(
+            self::URL, 'user', 'pass',
+            otpCode: '123456',
+            rememberDevice: true,
+            http: $http,
+            requests: new Psr17Factory,
+        );
+
+        $syno->contacts->info->get_timezone();
+
+        $first = FakePsrClient::paramsOf($http->requests[0]);
+        $second = FakePsrClient::paramsOf($http->requests[2]);
+
+        $this->assertArrayNotHasKey('device_id', $first);
+        $this->assertSame('DEVICE', $second['device_id']);
+    }
+
+    /**
+     * did 를 이 인스턴스가 직접 받은 적이 없어도 된다. 다른 프로세스가 로그인해
+     * 저장소에 넣어 둔 세션에서도 챙겨야 한다 — 버리기 전에.
+     */
+    public function test_a_device_token_in_the_store_survives_the_refresh(): void
+    {
+        $http = FakePsrClient::sequence(
+            '{"success":false,"error":{"code":106}}',    // 저장소의 세션이 이미 만료
+            self::LOGIN_OK,
+            self::CALL_OK,
+        );
+        $syno = Synology::connect(
+            self::URL, 'user', 'pass',
+            store: new InMemoryStore(new Session('STORED_SID', did: 'STORED_DEVICE')),
+            http: $http,
+            requests: new Psr17Factory,
+        );
+
+        $syno->contacts->info->get_timezone();
+
+        $this->assertSame('STORED_DEVICE', FakePsrClient::paramsOf($http->requests[1])['device_id']);
+    }
+
+    /**
+     * OTP 코드는 일회용이다. 재로그인에 같은 코드를 또 보내면 404(코드 인증 실패)가
+     * 오고, 정작 필요한 신호인 403(코드 필요)이 가려진다.
+     */
+    public function test_a_used_otp_code_is_not_replayed(): void
+    {
+        $http = FakePsrClient::sequence(
+            self::LOGIN_OK,
+            '{"success":false,"error":{"code":106}}',
+            self::LOGIN_OK,
+            self::CALL_OK,
+        );
+        $syno = Synology::connect(
+            self::URL, 'user', 'pass',
+            otpCode: '123456',
+            http: $http,
+            requests: new Psr17Factory,
+        );
+
+        $syno->contacts->info->get_timezone();
+
+        $this->assertSame('123456', FakePsrClient::paramsOf($http->requests[0])['otp_code']);
+        $this->assertArrayNotHasKey('otp_code', FakePsrClient::paramsOf($http->requests[2]));
+    }
+
+    /**
+     * 403 을 잡아 사용자에게 코드를 받고 다시 시도하는 흐름.
+     */
+    public function test_an_otp_code_can_be_given_for_a_retry(): void
+    {
+        $http = FakePsrClient::sequence(
+            '{"success":false,"error":{"code":403}}',    // 2단계 인증 코드 필요
+            self::LOGIN_OK,
+            self::CALL_OK,
+        );
+        $syno = Synology::connect(self::URL, 'user', 'pass', http: $http, requests: new Psr17Factory);
+
+        try {
+            $syno->contacts->info->get_timezone();
+            $this->fail('AuthException 이 발생해야 한다.');
+        } catch (AuthException $e) {
+            $this->assertTrue($e->requiresOtp());
+        }
+
+        $syno->authenticator()->login('654321');
+        $syno->contacts->info->get_timezone();
+
+        $this->assertSame('654321', FakePsrClient::paramsOf($http->requests[1])['otp_code']);
+        $this->assertSame('NEW_SID', $http->lastBody()['_sid']);
     }
 
     // --- 세션 만료 재시도 ----------------------------------------------------

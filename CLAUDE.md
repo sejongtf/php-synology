@@ -97,6 +97,20 @@ The cost is that NAS-side and proxy-side logs no longer show which API was calle
 - **Session expiry (106/107/119) is retried once, only when credentials exist.** `connect()` hands `Http\Connection::onSessionExpired()` a re-login callback; `withSession()`/`withStore()` never set it, so with an injected sid the error surfaces for the consumer to handle.
 - **`Http\ErrorMapper` picks the exception class from the API name, except 106/107/119**, which always map to `AuthException`. A session timeout during a Calendar call is an auth problem, not a service problem, so `catch (AuthException)` handles refresh anywhere.
 
+### Session and login
+
+`connect()` does not log in — it wraps the consumer's store in `Auth\AuthenticatingStore`, which logs in the first time something asks for a session that isn't there. That keeps a service-container boot from hitting the network.
+
+Two things stop that from recursing, and both are easy to break:
+
+- `Http\Connection::request()` checks `isset($request['_sid'])` **before** calling `sessions->get()`. Hoisting the store lookup above that check makes a bot-token call trigger the lazy login, and makes the login request itself re-enter the store. `SynologyTest::test_a_bot_token_api_never_triggers_the_lazy_login` pins it.
+- `Authenticator` is handed the **inner** store, not the decorator.
+
+**`Authenticator` holds two pieces of mutable state, and both exist for 2FA.** `Credentials` is immutable and stays that way; these live on the authenticator because they change with each login.
+
+- **`$deviceId` — carried forward.** `enable_device_token=yes` makes DSM return `did`; each successful login stores it, and every later login sends it as `device_id`. Without this, an account with enforced 2FA can never be re-authenticated automatically: `refresh()` would ask for a password-only login and get 403. `refresh()` also reads the `did` off the **current session before calling `forget()`** — with a consumer-owned store the session may have been written by another process, so that read is the only chance to see it. Moving the `forget()` above it silently reintroduces the whole problem, and no test of the retry path fails.
+- **`$otpCode` — consumed once.** A TOTP code is single-use, so it is cleared after a login succeeds. Replaying it earns a 404 (*failed to authenticate 2-factor code*), which masks the one useful signal, 403 (*code required*) — the code a consumer branches on via `AuthException::requiresOtp()`. `login(?string $otpCode)` takes a fresh code for that retry; that's why `Credentials::withOtpCode()` no longer exists (it built a new value object the live authenticator had no way to accept).
+
 ### Response abstractions
 
 - `src/Message/` holds exactly one class: `Response`, `final`, wrapping a PSR-7 response.
