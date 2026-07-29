@@ -1,0 +1,29 @@
+{
+  "SYNO.API.Info": {
+    "appPriv": "",
+    "authLevel": 0,
+    "disableSocket": false,
+    "lib": "lib/SYNO.API.Info.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "query": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "Query": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": -20,
+    "priorityAdj": 0,
+    "socket": ""
+  }
+}

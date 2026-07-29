@@ -1,0 +1,3265 @@
+{
+  "SYNO.Chat.Admin.Setting": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Admin.Setting.so",
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        {
+          "refresh_permission": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "log_export": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "log": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "import_status": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "disableSocket": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "background_job_status": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "refresh_permission": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "log_export": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "log": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "import_status": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "disableSocket": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "background_job_status": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "remove_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete_by_admin_setting": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "refresh_permission": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "log_export": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "log": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "import_status": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "disableSocket": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "background_job_status": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "remove_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete_by_admin_setting": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "refresh_permission": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "log_export": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "log": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "import_status": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "disableSocket": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "background_job_status": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "remove_batch_delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set_batch_delete_by_admin_setting": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.App": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.App.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_bot": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "icon": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_bot": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "icon": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Archive": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Archive.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_name": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Bot": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Bot.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "disable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "enable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "regen_token": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.so",
+    "maxVersion": 5,
+    "methods": {
+      "1": [
+        {
+          "rescue": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "leave": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "view": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "hide": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "enter": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "close": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "archive": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "rescue": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "leave": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "view": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "hide": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "enter": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "3": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "4": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "close": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "hide_global": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "5": [
+        {
+          "enter": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "leave": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "hide": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "view": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "rescue": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "archive": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "close": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "hide_global": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Anonymous": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.Anonymous.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "initiate": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "promote": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "initiate": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Chatbot": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.Chatbot.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_blocked": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "block": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "initiate": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.GuestUser": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.GuestUser.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "resend_email": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "kick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "register": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Hashtag": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Hidden": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.Hidden.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "initiate": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Member": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.Member.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Named": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.Named.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "kick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "invite": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "disjoin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "join": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Channel.Preference": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Channel.so",
+    "maxVersion": 3,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "3": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Chatbot": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Chatbot.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.External": {
+    "appPriv": "",
+    "authLevel": 0,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.External.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "chatbot": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "broadcast": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "incoming": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "post_file_get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "post_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "channel_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "user_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "chatbot": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "broadcast": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "incoming": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Misc": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Misc.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "acl": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "ntp": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.so",
+    "maxVersion": 8,
+    "methods": {
+      "1": [
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "search": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "search": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "search": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "delete_list": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "batch_delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "admin_search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "5": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "delete_list": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "batch_delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "admin_search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "thread_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "6": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "delete_list": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "batch_delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "admin_search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "thread_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get_read_status": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "7": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "delete_list": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "batch_delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "admin_search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "thread_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get_read_status": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "8": [
+        {
+          "hide_og": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "forward": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "unstick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "stick": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list_editable": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unpin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "pin": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "unstar": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "star": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "delete_list": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "batch_delete": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap",
+              "normal.local",
+              "normal.domain",
+              "normal.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "admin_search": {
+            "allowUser": [
+              "admin.local",
+              "admin.domain",
+              "admin.ldap"
+            ],
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "thread_list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get_read_status": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Attachment": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Attachment.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "trigger": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.File": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.File.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "og": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "doc_convert": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "thumbnail": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "video_link": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "og": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "doc_convert": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "thumbnail": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Hashtag": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Reaction": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.domain",
+      "normal.local",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Reminder": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Reminder.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Schedule": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Schedule.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Snippet": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "normal.local",
+      "admin.ldap",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Snippet.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Subscribe": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap",
+      "normal.domain",
+      "normal.local",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Subscribe.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "view": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "view": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Post.Vote": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Post.Vote.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_choices": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "close": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create_option": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "vote": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Sticker": {
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 0,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Sticker.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.User": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.User.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "notify_encrypt": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "change_password": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "update_key": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "notification_badge": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "login": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "polling": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "notify_encrypt": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "change_password": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "update_key": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "notification_badge": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "login": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "polling": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "privilege_user_count": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.User.Avatar": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.User.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDownload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 5,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.User.Preference": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.User.so",
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "3": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ],
+      "4": [
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.User.Status": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.ldap",
+      "normal.local",
+      "normal.domain"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.User.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "clear": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Webhook.Broadcast": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Webhook.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Webhook.BuiltIn": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Webhook.BuiltIn.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "conference": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Webhook.Incoming": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Webhook.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Webhook.Outgoing": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Webhook.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  },
+  "SYNO.Chat.Webhook.Slash": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "SYNO.SDS.Chat.Application",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/Chat/target/webapi/SYNO.Chat.Webhook.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "set": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "create": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "list": {
+            "grantByUser": false,
+            "grantable": false
+          }
+        },
+        {
+          "execute": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "Chat",
+    "socket": "/run/synochat/synoapid.sock"
+  }
+}

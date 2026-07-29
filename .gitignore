@@ -1,0 +1,20 @@
+# AI
+.agents/
+.ai/
+.codex/
+.claude/
+.gemini/
+
+# Composer
+vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+.env
+auth.json
+
+# PHPUnit 로컬 설정 (통합 테스트 자격증명)
+phpunit.xml

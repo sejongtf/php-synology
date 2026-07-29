@@ -1,0 +1,159 @@
+{
+  "SYNO.Personal.Profile": {
+    "allowUser": [
+      "admin.domain",
+      "admin.local",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/SynologyApplicationService/target/webapi/profile/SYNO.Personal.Profile.so",
+    "maxVersion": 3,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "search": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "set": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "get": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "list": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "get": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "get": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "list": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "SynologyApplicationService",
+    "socket": ""
+  },
+  "SYNO.Personal.Profile.Photo": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "disableSocket": false,
+    "lib": "/var/packages/SynologyApplicationService/target/webapi/profile/SYNO.Personal.Profile.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDownload": true,
+            "allowSharing": true,
+            "grantByUser": true,
+            "grantable": false,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "delete": {
+            "grantByUser": false,
+            "grantable": true
+          }
+        },
+        {
+          "upload": {
+            "allowUpload": true,
+            "grantByUser": false,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "get": {
+            "allowDownload": true,
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        },
+        {
+          "get_encoded": {
+            "allowSharing": true,
+            "grantByUser": false,
+            "grantable": true,
+            "skipSharingAppCheck": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "SynologyApplicationService",
+    "socket": ""
+  }
+}

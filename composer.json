@@ -1,0 +1,54 @@
+{
+    "name": "sejongtf/synology",
+    "description": "A framework-independent PHP client for the Synology DSM Web API.",
+    "type": "library",
+    "keywords": ["synology", "dsm", "nas", "webapi", "psr-18", "chat", "calendar", "contacts", "mailplus"],
+    "homepage": "https://github.com/sejongtf/php-synology",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Minhyung Park",
+            "email": "minhyung.park@sejongtf.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sejongtf/php-synology/issues",
+        "source": "https://github.com/sejongtf/php-synology"
+    },
+    "require": {
+        "php": "^8.2",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.0",
+        "psr/http-message": "^1.1 || ^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sejongtf\\Synology\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sejongtf\\Synology\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "nyholm/psr7": "^1.8",
+        "phpunit/phpunit": "^11.5"
+    },
+    "suggest": {
+        "php-http/discovery": "PSR-18/PSR-17 구현을 자동으로 찾습니다. 없으면 Synology::connect() 등에 직접 넘겨야 합니다.",
+        "guzzlehttp/guzzle": "PSR-18 클라이언트 구현체 중 하나",
+        "nyholm/psr7": "가벼운 PSR-7/PSR-17 구현체"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:integration": "phpunit --testsuite integration"
+    }
+}

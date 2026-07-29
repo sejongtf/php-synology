@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="depends,defects"
+         failOnRisky="true"
+         failOnWarning="true"
+         defaultTestSuite="unit"
+         colors="true">
+    <testsuites>
+        <!-- 네트워크 없이 도는 기본 묶음. -->
+        <testsuite name="unit">
+            <directory>tests</directory>
+            <exclude>tests/Integration</exclude>
+        </testsuite>
+
+        <!--
+            실제 NAS 를 상대로 도는 묶음.
+
+                vendor/bin/phpunit  (testsuite 이름: integration)
+
+            아래 SYNOLOGY_* 값이 없으면 전부 건너뛴다. 그래서 이 파일을 그대로 두면
+            `vendor/bin/phpunit` 은 어디서든 네트워크 없이 통과한다.
+        -->
+        <testsuite name="integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
+
+    <!--
+        통합 테스트 설정.
+
+        이 파일(phpunit.xml.dist)에는 값을 채우지 말 것. 대신 복사해서 쓴다:
+
+            cp phpunit.xml.dist phpunit.xml
+
+        phpunit.xml 은 gitignore 돼 있으므로 자격증명이 커밋되지 않는다.
+        PHPUnit 은 phpunit.xml 이 있으면 그걸 먼저 쓴다.
+
+        인증은 둘 중 하나만 있으면 된다.
+          (A) SYNOLOGY_SID          이미 갖고 있는 세션을 주입한다. 로그인하지 않는다.
+          (B) SYNOLOGY_ACCOUNT/PASSWORD  로그인한다. 2단계 인증이면 SYNOLOGY_OTP 도.
+
+        여기 있는 테스트는 전부 읽기 전용이라 NAS 데이터를 바꾸지 않는다.
+    -->
+    <php>
+        <env name="SYNOLOGY_URL" value=""/>              <!-- 예: https://nas.example.com:5001 -->
+        <env name="SYNOLOGY_SID" value=""/>
+        <env name="SYNOLOGY_ACCOUNT" value=""/>
+        <env name="SYNOLOGY_PASSWORD" value=""/>
+        <env name="SYNOLOGY_OTP" value=""/>              <!-- 2단계 인증 코드 -->
+        <env name="SYNOLOGY_SESSION" value=""/>          <!-- DSM 세션 이름 (예: Contacts) -->
+        <env name="SYNOLOGY_VERIFY_TLS" value="1"/>      <!-- 자체 서명 인증서면 0 -->
+    </php>
+</phpunit>

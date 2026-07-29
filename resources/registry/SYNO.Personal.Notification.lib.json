@@ -1,0 +1,594 @@
+{
+    "SYNO.Personal.Notification.Conf": {
+      "allowUser": [
+        "admin.domain",
+        "admin.local",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 2,
+      "methods": {
+        "1": [
+          {
+            "get": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "set": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "2": [
+          {
+            "get": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "set": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Device": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.domain",
+        "normal.local",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 2,
+      "methods": {
+        "1": [
+          {
+            "unpair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "list": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "2": [
+          {
+            "list": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Event": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 2,
+      "methods": {
+        "1": [
+          {
+            "get": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "delete": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "list": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "send": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.ldap",
+                "normal.domain"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "2": [
+          {
+            "list": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "delete": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": true,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Filter": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "set": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "list": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.GDPR": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "set": {
+              "grantByUser": true,
+              "grantable": false
+            }
+          },
+          {
+            "get": {
+              "grantByUser": true,
+              "grantable": false
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Identifier": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "get": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Mobile": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 3,
+      "methods": {
+        "1": [
+          {
+            "stat": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "pair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "unpair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "2": [
+          {
+            "stat": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "pair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "unpair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "3": [
+          {
+            "stat": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "pair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "unpair": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Settings": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 2,
+      "methods": {
+        "1": [
+          {
+            "setup": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "set": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "get": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ],
+        "2": [
+          {
+            "get": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          },
+          {
+            "set": {
+              "allowUser": [
+                "admin.local",
+                "admin.domain",
+                "admin.ldap",
+                "normal.local",
+                "normal.domain",
+                "normal.ldap"
+              ],
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.Token": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "get": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    },
+    "SYNO.Personal.Notification.VapidPublicKey": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "disableSocket": false,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/notification/SYNO.Personal.Notification.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "get": {
+              "grantByUser": false,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "priorityAdj": 0,
+      "runAs": "SynologyApplicationService",
+      "socket": ""
+    }
+  }

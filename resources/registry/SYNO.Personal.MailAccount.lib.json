@@ -1,0 +1,127 @@
+{
+    "SYNO.Personal.MailAccount": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/mail/SYNO.Personal.MailAccount.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "set": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "delete": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "get": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "update": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "test": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "runAs": "SynologyApplicationService"
+    },
+    "SYNO.Personal.MailAccount.Contacts": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/mail/SYNO.Personal.MailAccount.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "list": {
+              "allowSharing": true,
+              "grantByUser": true,
+              "grantable": true,
+              "skipSharingAppCheck": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "runAs": "SynologyApplicationService"
+    },
+    "SYNO.Personal.MailAccount.Mail": {
+      "allowUser": [
+        "admin.local",
+        "admin.domain",
+        "admin.ldap",
+        "normal.local",
+        "normal.domain",
+        "normal.ldap"
+      ],
+      "appPriv": "",
+      "authLevel": 1,
+      "lib": "/var/packages/SynologyApplicationService/target/webapi/mail/SYNO.Personal.MailAccount.so",
+      "maxVersion": 1,
+      "methods": {
+        "1": [
+          {
+            "send": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "status": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "stop": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          },
+          {
+            "clean": {
+              "grantByUser": true,
+              "grantable": true
+            }
+          }
+        ]
+      },
+      "minVersion": 1,
+      "priority": 0,
+      "runAs": "SynologyApplicationService"
+    }
+  }

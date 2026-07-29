@@ -1,0 +1,77 @@
+name: tests
+
+on:
+  push:
+    branches: [0.x]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} (${{ matrix.dependencies }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+        dependencies: [highest]
+        include:
+          # 느슨한 제약(psr/http-message ^1.1 || ^2.0)이 아래쪽에서도 실제로 도는지.
+          # 최저 의존성은 최저 PHP 와 짝지어야 서드파티가 8.4 에서 내는 deprecation 이 섞이지 않는다.
+          - php: '8.2'
+            dependencies: lowest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      # composer.lock 은 gitignore 대상이라 매번 새로 푼다(기본값 locked 를 쓰면 안 된다).
+      # composer.json 의 config.platform.php 가 8.2 로 고정돼 있어, 어느 러너에서든
+      # 패키지 최소 PHP 를 기준으로 해석된다.
+      - uses: ramsey/composer-install@v4
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+
+      # 기본 스위트는 unit 이다. 통합 테스트는 실기기가 필요하므로 여기서 돌지 않는다.
+      - run: vendor/bin/phpunit
+
+  checks:
+    name: 정합성
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer:v2
+
+      - run: composer validate --strict
+
+      - uses: ramsey/composer-install@v4
+        with:
+          dependency-versions: highest
+
+      # 실패한 파일 이름과 줄 번호는 stderr 로 나온다. stdout 은 파일마다 한 줄씩 나오는
+      # "No syntax errors detected" 라 버린다.
+      - name: 문법 검사
+        run: find src tests tools -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
+
+      # 커밋된 클래스가 레지스트리와 어긋나면 리포트만 하고, 생성할 것이 남아 있으면 실패한다.
+      - name: 코드젠 멱등성
+        run: php tools/generate-apis.php --diff

@@ -1,0 +1,3964 @@
+{
+  "SYNO.MailPlusServer.Account.Detail": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Account.Maildir": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "clear": {
+            "grantable": true
+          }
+        },
+        {
+          "list_no_owner": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_no_owner": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Account.Quota": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_system_quota": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "set_group": {
+            "grantable": true
+          }
+        },
+        {
+          "set_system_quota": {
+            "grantable": true
+          }
+        },
+        {
+          "clear": {
+            "grantable": true
+          }
+        },
+        {
+          "clear_group": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Alias": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_member": {
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Audit.AdminLog": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "list_user": {
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Audit.SearchTask": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "import_list": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "start": {
+            "grantable": true
+          }
+        },
+        {
+          "stop": {
+            "grantable": true
+          }
+        },
+        {
+          "download_report": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Audit.SearchTaskResult": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "fetch_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "grantable": true
+          }
+        },
+        {
+          "get_export_progress": {
+            "grantable": true
+          }
+        },
+        {
+          "get_export_file": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_delete_progress": {
+            "grantable": true
+          }
+        },
+        {
+          "download_mail": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_inline": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Audit.TransactionLog": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "get_detail": {
+            "grantable": true
+          }
+        },
+        {
+          "get_header": {
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Client": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_usage_limit": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Cluster": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 3,
+    "methods": {
+      "1": [
+        {
+          "setup": {
+            "grantable": true
+          }
+        },
+        {
+          "start": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "stop": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "cleanup": {
+            "grantable": true
+          }
+        },
+        {
+          "set_env": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "add_member": {
+            "grantable": true
+          }
+        },
+        {
+          "del_member": {
+            "grantable": true
+          }
+        },
+        {
+          "get_balancer_info": {
+            "grantable": true
+          }
+        },
+        {
+          "set_balancer_info": {
+            "grantable": true
+          }
+        },
+        {
+          "set_role": {
+            "grantable": true
+          }
+        },
+        {
+          "check_health": {
+            "grantable": true
+          }
+        },
+        {
+          "sync_conf_file": {
+            "allowUpload": true,
+            "deferUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "check_aa": {
+            "grantable": true
+          }
+        },
+        {
+          "set_interface": {
+            "grantable": true
+          }
+        },
+        {
+          "get_interface": {
+            "grantable": true
+          }
+        },
+        {
+          "get_add_member_progress": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "setup": {
+            "grantable": true
+          }
+        },
+        {
+          "add_member": {
+            "grantable": true
+          }
+        },
+        {
+          "set_env": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "del_member": {
+            "grantable": true
+          }
+        },
+        {
+          "set_interface": {
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "setup": {
+            "grantable": true
+          }
+        },
+        {
+          "add_member": {
+            "grantable": true
+          }
+        },
+        {
+          "set_env": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.CreateWizard": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 7,
+    "methods": {
+      "1": [
+        {
+          "auth_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_storage_volume_list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_node_weight": {
+            "grantable": true
+          }
+        },
+        {
+          "get_node_info": {
+            "grantable": true
+          }
+        },
+        {
+          "get_node_ip_list": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "5": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "6": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "7": [
+        {
+          "env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "node_env_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Delegation": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_enable_tab": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_user_group_delegation": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_delegation": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_delegation": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "update_delegation": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_delegation": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Diagnosis": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "mailserver_check": {
+            "grantable": true
+          }
+        },
+        {
+          "blacklist_check_cache": {
+            "grantable": true
+          }
+        },
+        {
+          "blacklist_check": {
+            "grantable": true
+          }
+        },
+        {
+          "blacklist_check_status": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "mailserver_check": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Disclaimer": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "create_primary": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "set_primary": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "has_domain_admin": {
+            "grantable": true
+          }
+        },
+        {
+          "set_security": {
+            "grantable": true
+          }
+        },
+        {
+          "get_security": {
+            "grantable": true
+          }
+        },
+        {
+          "generate_dkim_key": {
+            "grantable": true
+          }
+        },
+        {
+          "migrate": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "set_security": {
+            "grantable": true
+          }
+        },
+        {
+          "get_security": {
+            "grantable": true
+          }
+        },
+        {
+          "generate_dkim_key": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain.AdditionalDomain": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain.BCC": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain.Group": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "get_member_status": {
+            "grantable": true
+          }
+        },
+        {
+          "restore_member_status": {
+            "grantable": true
+          }
+        },
+        {
+          "restore_partial_member_status": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain.Settings": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get_domain_usage_limit": {
+            "grantable": true
+          }
+        },
+        {
+          "list_domain_usage": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_domain_usage": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Domain.User": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "preview": {
+            "grantable": true
+          }
+        },
+        {
+          "add_members": {
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.FullTextSearch": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_rule": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.IMAP_POP3": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.IMAP_POP3_ADVANCED": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.License": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 3,
+    "methods": {
+      "1": [
+        {
+          "list_active_member": {
+            "grantable": true
+          }
+        },
+        {
+          "edit_activate_member": {
+            "grantable": true
+          }
+        },
+        {
+          "get_user_limit": {
+            "grantable": true
+          }
+        },
+        {
+          "get_active_user_num": {
+            "grantable": true
+          }
+        },
+        {
+          "refresh_user_limit": {
+            "grantable": true
+          }
+        },
+        {
+          "check_server_validity": {
+            "grantable": true
+          }
+        },
+        {
+          "get_default_active": {
+            "grantable": true
+          }
+        },
+        {
+          "license_sync_migrate": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "activate": {
+            "grantable": true
+          }
+        },
+        {
+          "check_code": {
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "list_by_device": {
+            "grantable": true
+          }
+        },
+        {
+          "list_by_account": {
+            "grantable": true
+          }
+        },
+        {
+          "activate": {
+            "grantable": true
+          }
+        },
+        {
+          "registration": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.License.BitDefender": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "offline_get_user_limit": {
+            "grantable": true
+          }
+        },
+        {
+          "offline_check": {
+            "grantable": true
+          }
+        },
+        {
+          "list_and_check": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.License.Payment": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_purchase_params": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Log": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "conf_get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "conf_set": {
+            "grantable": true
+          }
+        },
+        {
+          "list_log": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_log": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_log": {
+            "grantable": true
+          }
+        },
+        {
+          "gen_db_start": {
+            "grantable": true
+          }
+        },
+        {
+          "gen_db_status": {
+            "grantable": true
+          }
+        },
+        {
+          "import_ca": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Log.Mail": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Log.Security": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.MailImportExport": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "list_mailbox": {
+            "grantable": true
+          }
+        },
+        {
+          "download_mailfile": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "export": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.MailPlus": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "upload_logo": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_logo": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Migration": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "migrate": {
+            "grantable": true
+          }
+        },
+        {
+          "continue": {
+            "grantable": true
+          }
+        },
+        {
+          "get_progress": {
+            "grantable": true
+          }
+        },
+        {
+          "get_settings": {
+            "grantable": true
+          }
+        },
+        {
+          "migrate_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "migrate_config_files": {
+            "grantable": true
+          }
+        },
+        {
+          "migrate_spam_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "get_mail_migration_progress": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Normal.Util": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_user": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_group": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Personal.AutoReply": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "list_reply": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_reply": {
+            "grantable": true
+          }
+        },
+        {
+          "set_reply": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_reply": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Personal.Forward": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Personal.ForwardReply": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Queue": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "flush": {
+            "grantable": true
+          }
+        },
+        {
+          "flush_all": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_all": {
+            "grantable": true
+          }
+        },
+        {
+          "conf_get": {
+            "grantable": true
+          }
+        },
+        {
+          "conf_set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.RemoteMigrate": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        {
+          "list_task": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_task": {
+            "grantable": true
+          }
+        },
+        {
+          "start_task": {
+            "grantable": true
+          }
+        },
+        {
+          "stop_task": {
+            "grantable": true
+          }
+        },
+        {
+          "get_task_summary": {
+            "grantable": true
+          }
+        },
+        {
+          "list_log": {
+            "grantable": true
+          }
+        },
+        {
+          "download_log": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "check_task_name": {
+            "grantable": true
+          }
+        },
+        {
+          "set_general": {
+            "grantable": true
+          }
+        },
+        {
+          "get_general": {
+            "grantable": true
+          }
+        },
+        {
+          "set_notification": {
+            "grantable": true
+          }
+        },
+        {
+          "get_notification": {
+            "grantable": true
+          }
+        },
+        {
+          "test_conn": {
+            "grantable": true
+          }
+        },
+        {
+          "list_user": {
+            "grantable": true
+          }
+        },
+        {
+          "import_user": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_user": {
+            "grantable": true
+          }
+        },
+        {
+          "check_user": {
+            "grantable": true
+          }
+        },
+        {
+          "set_filter": {
+            "grantable": true
+          }
+        },
+        {
+          "get_filter": {
+            "grantable": true
+          }
+        },
+        {
+          "list_keyword": {
+            "grantable": true
+          }
+        },
+        {
+          "set_keyword": {
+            "grantable": true
+          }
+        },
+        {
+          "upload_exchange_config": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_exchange_script": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "start_task": {
+            "grantable": true
+          }
+        },
+        {
+          "stop_task": {
+            "grantable": true
+          }
+        },
+        {
+          "set_general": {
+            "grantable": true
+          }
+        },
+        {
+          "get_general": {
+            "grantable": true
+          }
+        },
+        {
+          "test_conn": {
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "set_general": {
+            "grantable": true
+          }
+        },
+        {
+          "get_general": {
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "set_general": {
+            "grantable": true
+          }
+        },
+        {
+          "get_general": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Report": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SMTP": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SMTP.Delivery": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_type": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_type": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_multiple": {
+            "grantable": true
+          }
+        },
+        {
+          "get_multiple": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "get_type": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_type": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_multiple": {
+            "grantable": true
+          }
+        },
+        {
+          "get_multiple": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SMTP.General": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_postmaster": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_postmaster": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SMTP.RelayControl": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SMTP.Security": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_anti_virus_template": {
+            "grantable": true
+          }
+        },
+        {
+          "get_anti_virus_template": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "generate_dkim_key": {
+            "grantable": true
+          }
+        },
+        {
+          "update_anti_virus": {
+            "grantable": true
+          }
+        },
+        {
+          "update_anti_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "get_anti_spam_update_status": {
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "set_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "set_antivirus": {
+            "grantable": true
+          }
+        },
+        {
+          "set_authentication": {
+            "grantable": true
+          }
+        },
+        {
+          "set_contentscan": {
+            "grantable": true
+          }
+        },
+        {
+          "set_anti_virus_template": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "get_antivirus": {
+            "grantable": true
+          }
+        },
+        {
+          "get_authentication": {
+            "grantable": true
+          }
+        },
+        {
+          "get_contentscan": {
+            "grantable": true
+          }
+        },
+        {
+          "get_synoav_mcafee_status": {
+            "grantable": true
+          }
+        },
+        {
+          "get_anti_virus_template": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "set_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "set_antivirus": {
+            "grantable": true
+          }
+        },
+        {
+          "set_authentication": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "get_antivirus": {
+            "grantable": true
+          }
+        },
+        {
+          "get_bitdefender_status": {
+            "grantable": true
+          }
+        },
+        {
+          "get_authentication": {
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "set_spam": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_spam": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.AttachmentFilter": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.BlackwhiteList": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "import": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.DailyQuota": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_rule": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "set_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "list_usage_data": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_usage_data": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.Dane": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_tlsa_record": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "generate_tlsa_record": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_trust_recipient": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_trust_recipient": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_trust_recipient": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_trust_recipient": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.DkimTrustSender": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.Greylist": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.MCP": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "list_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "add_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "edit_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "set_bounce_template": {
+            "grantable": true
+          }
+        },
+        {
+          "get_bounce_template": {
+            "grantable": true
+          }
+        },
+        {
+          "get_quarantine_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "get_original_mail": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_quarantine_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "release_quarantine_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_quarantine_mail": {
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.MCPQuarantine": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "release": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_original": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.PostScreen": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "grantable": true
+          }
+        },
+        {
+          "set": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Security.VirusQuarantine": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_mail": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "release_mail": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_mail": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_original_mail": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "release": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_original": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.SecurityDashboard": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "get_threat_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_inbound_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_outbound_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_threat_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_inbound_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_outbound_info": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_blocked_address": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.ServerList": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Service.SMTP": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Spam.ReportedHam": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_original": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "learn": {
+            "grantable": true
+          }
+        },
+        {
+          "learn_all": {
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Spam.ReportedSpam": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_original": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete": {
+            "grantable": true
+          }
+        },
+        {
+          "learn": {
+            "grantable": true
+          }
+        },
+        {
+          "learn_all": {
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "download_attachment_all": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Spam.SpamAssassin": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_rule": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "set_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_rule": {
+            "grantable": true
+          }
+        },
+        {
+          "import_rule": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "export_rule": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_filter": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_filter": {
+            "grantable": true
+          }
+        },
+        {
+          "set_filter": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_filter": {
+            "grantable": true
+          }
+        },
+        {
+          "import_filter": {
+            "allowUpload": true,
+            "grantable": true
+          }
+        },
+        {
+          "export_filter": {
+            "allowDemo": true,
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_keyword": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "add_keyword_group": {
+            "grantable": true
+          }
+        },
+        {
+          "edit_keyword_group": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_keyword_group": {
+            "grantable": true
+          }
+        },
+        {
+          "add_keyword": {
+            "grantable": true
+          }
+        },
+        {
+          "edit_keyword": {
+            "grantable": true
+          }
+        },
+        {
+          "delete_keyword": {
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Statistic": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 4,
+    "methods": {
+      "1": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_analysis": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "get": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "export": {
+            "allowDownload": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_analysis": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "3": [
+        {
+          "get_analysis": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "4": [
+        {
+          "get_analysis": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.UserGroupPolicy": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "list_user_group_policy": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_policy": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "create_policy": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "update_policy": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "delete_policy": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_default_policy_entry": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Util": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 2,
+    "methods": {
+      "1": [
+        {
+          "get_account_type": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_default_mac": {
+            "grantable": true
+          }
+        },
+        {
+          "initial_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_server": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_user": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_group": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_user_group": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_directory_domain": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_directory_ldap": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_package": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "get_package": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "query_mydscenter": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "info_system": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "app_privilege_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "list_network_interface": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ],
+      "2": [
+        {
+          "initial_check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  },
+  "SYNO.MailPlusServer.Version": {
+    "allowUser": [
+      "admin.local",
+      "admin.domain",
+      "admin.ldap",
+      "normal.local",
+      "normal.domain",
+      "normal.ldap"
+    ],
+    "appPriv": "",
+    "authLevel": 1,
+    "lib": "/var/packages/MailPlus-Server/target/webapi/SYNO.MailPlusServer.so",
+    "maxVersion": 1,
+    "methods": {
+      "1": [
+        {
+          "set": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        },
+        {
+          "check": {
+            "allowDemo": true,
+            "grantable": true
+          }
+        }
+      ]
+    },
+    "minVersion": 1,
+    "priority": 0,
+    "priorityAdj": 0,
+    "runAs": "MailPlus-Server"
+  }
+}
