@@ -242,6 +242,63 @@ class HttpConnectionTest extends TestCase
         $this->assertNull($this->connection()->getSessionId());
     }
 
+    // --- 재인증 콜백 ---------------------------------------------------------
+
+    /**
+     * 콜백은 **방금 실패한 요청에 실려 있던** sid 를 받아야 한다. 저장소의 현재 값이
+     * 아니다 — 저장소를 여러 프로세스가 공유하면 그 둘이 다를 수 있고, 다르다는 사실이
+     * 곧 "그 사이 누가 이미 갱신했다" 는 신호다.
+     */
+    public function test_the_callback_is_told_which_sid_expired(): void
+    {
+        $http = FakePsrClient::sequence(
+            '{"success":false,"error":{"code":106}}',
+            '{"success":true,"data":{}}',
+        );
+        $connection = $this->connection($http, new Session('SID_NEW'));
+
+        $seen = 'not called';
+        $connection->onSessionExpired(function (string $staleSid) use (&$seen): Session {
+            $seen = $staleSid;
+
+            return new Session('SID_NEW');
+        });
+
+        // 저장소에는 SID_NEW 가 들어 있지만 이 요청이 들고 나간 건 SID_OLD 다.
+        $connection->request('SYNO.Contacts.Info', 1, 'get_timezone', ['_sid' => 'SID_OLD']);
+
+        $this->assertSame('SID_OLD', $seen);
+    }
+
+    /**
+     * 다른 프로세스가 이미 갱신했으면 다시 로그인하지 않고 그 세션을 쓸 수 있어야 한다.
+     * 콜백이 저장소의 세션을 그대로 돌려주면 그걸로 재시도한다.
+     */
+    public function test_a_session_someone_else_refreshed_can_be_reused_as_is(): void
+    {
+        $http = FakePsrClient::sequence(
+            '{"success":false,"error":{"code":106}}',
+            '{"success":true,"data":{}}',
+        );
+        $store = new InMemoryStore(new Session('SID_NEW', 'CSRF_NEW'));
+        $factory = new Psr17Factory;
+        $connection = new Connection(
+            $http, $factory, $factory, new Endpoint('https://nas.example.com:5001'), $store,
+        );
+
+        $connection->onSessionExpired(
+            fn (string $staleSid): Session => ($current = $store->get())->sid !== $staleSid
+                ? $current                                  // 이미 갱신됐다. 로그인하지 않는다.
+                : throw new \LogicException('여기 오면 안 된다.'),
+        );
+
+        $connection->request('SYNO.Contacts.Info', 1, 'get_timezone', ['_sid' => 'SID_OLD']);
+
+        $this->assertCount(2, $http->requests);
+        $this->assertSame('SID_NEW', $http->lastBody()['_sid']);
+        $this->assertSame('CSRF_NEW', $http->lastQuery()['SynoToken']);
+    }
+
     // --- 값 다듬기 -----------------------------------------------------------
 
     public function test_normalizes_values_that_dsm_would_misread(): void

@@ -132,6 +132,34 @@ $syno = Synology::connect($url, 'user', 'pass',
 );
 ```
 
+### 여러 프로세스가 세션 하나를 나눠 쓸 때
+
+저장소를 공유하면 세션도 공유되지만, 만료도 같이 온다 — 알아챈 프로세스마다 다시
+로그인하려 든다. DSM 은 같은 계정이 두 번 로그인하면 앞의 세션을 끊으므로(그게 107)
+재로그인이 몰리면 서로가 서로를 무효화한다.
+
+재시도를 직접 가져가면 막을 수 있다. `Http\Connection::onSessionExpired()` 는 기본
+콜백을 갈아끼우고, 콜백은 **방금 실패한 요청에 실려 있던 sid** 를 받는다. 다른 쪽이 이미
+갱신했는지 알려 주는 값은 그것뿐이다. 저장소의 sid 가 그와 다르면 그 세션을 쓰면 된다.
+
+```php
+$connection = $syno->connection();
+$auth = $syno->authenticator();
+
+$connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
+    $current = $store->get();
+
+    // 잠금을 기다리는 사이에 다른 쪽이 갱신했다. 여기서 또 로그인하면
+    // 그쪽 세션만 끊는 꼴이다.
+    return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
+}));
+```
+
+**그 안에서 `$store->forget()` 을 부르면 안 된다.** 저장소를 비우는 건
+`Authenticator::refresh()` 가 하고, 만료된 세션에서 device token 을 읽은 **다음**에 한다.
+미리 비워 두면 그 조회가 빈 저장소를 읽고, 2단계 인증이 강제된 계정에서는 재로그인이
+OTP 를 요구해 실패한다.
+
 ## 호출하기
 
 `서비스 → API → 메서드` 세 단계다. 이름은 DSM 의 snake_case 를 그대로 따르고,
@@ -305,7 +333,9 @@ DSM 이 광고하는 업로드 메서드는 일부러 빼 두었다 — 부르�
   구현이 처리해야 한다 — bool 은 `'true'`/`'false'` 문자열로, null 은 아예 빼는 게 맞다
   (`http_build_query` 에 그냥 넘기면 `1`/`0` 이 되어 DSM 이 잘못 읽는다).
 - `_sid` 는 `Api::raw()` 가 넣어 주고, 세션 만료 재시도는 구현 몫이다. 기본
-  `Http\Connection` 은 `onSessionExpired()` 콜백이 있을 때만 한 번 재시도한다.
+  `Http\Connection` 은 `onSessionExpired()` 콜백이 있을 때만 한 번 재시도하고, 그 콜백에
+  방금 만료된 sid 를 넘긴다 — 저장소를 공유할 때 다른 프로세스가 이미 갈아끼운 세션인지
+  구분하라고 있는 값이다.
 
 ## 테스트
 

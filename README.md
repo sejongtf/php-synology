@@ -134,6 +134,36 @@ $syno = Synology::connect($url, 'user', 'pass',
 );
 ```
 
+### Sharing one session across processes
+
+Point several workers at the same store and they share a session — but they also expire
+together, and each one that notices will try to log in again. DSM cuts the previous session
+when the same account logs in twice (that is error 107), so a stampede of re-logins keeps
+invalidating each other.
+
+Take over the retry to stop that. `Http\Connection::onSessionExpired()` replaces the default
+callback, and it is handed **the sid that was on the request that just failed** — the one value
+that tells you whether somebody else has already refreshed. If the store now holds a different
+sid, there is nothing to do but use it.
+
+```php
+$connection = $syno->connection();
+$auth = $syno->authenticator();
+
+$connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
+    $current = $store->get();
+
+    // Somebody else refreshed while we were waiting for the lock. Logging in again
+    // here would only cut their session loose.
+    return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
+}));
+```
+
+**Do not call `$store->forget()` in there.** `Authenticator::refresh()` clears the store itself,
+and it does so only after reading the device token off the expiring session. Emptying the store
+first makes that read come up blank, and on an account with enforced 2FA the re-login then asks
+for an OTP and fails.
+
 ## Making calls
 
 Three steps: `service → API → method`. Names follow DSM's snake_case as-is, and the camelCase
@@ -315,7 +345,8 @@ constraints; the last two are the division of labour with this package.
   entirely (handing a bool to `http_build_query` yields `1`/`0`, which DSM misreads).
 - `_sid` is put there by `Api::raw()`, and retrying an expired session is up to the
   implementation. The shipped `Http\Connection` retries exactly once, and only when an
-  `onSessionExpired()` callback was set.
+  `onSessionExpired()` callback was set — which it hands the sid that just expired, so a
+  shared store can tell a stale session from one another process already replaced.
 
 ## Tests
 

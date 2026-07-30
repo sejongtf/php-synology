@@ -77,7 +77,7 @@ final class Connection implements ConnectionContract
      */
     private const SESSION_EXPIRED_CODES = [106, 107, 119];
 
-    /** @var (Closure(): Session)|null */
+    /** @var (Closure(string): Session)|null */
     private ?Closure $reauthenticate = null;
 
     public function __construct(
@@ -95,7 +95,28 @@ final class Connection implements ConnectionContract
      * 설정하면 만료된 요청을 **한 번만** 재시도한다. 설정하지 않으면 재시도하지 않는다 —
      * 자격증명 없이 sid 만 주입받은 경우 라이브러리가 다시 로그인할 방법이 없기 때문이다.
      *
-     * @param  Closure(): Session  $reauthenticate  세션을 버리고 새로 받아 오는 콜백
+     * 콜백은 **방금 실패한 요청에 실려 있던 sid** 를 받는다. 저장소를 여러 프로세스가
+     * 공유할 때, 그 값과 저장소의 현재 sid 를 비교하면 다시 로그인해야 하는지 알 수 있다.
+     * 다르면 그 사이 다른 프로세스가 이미 갱신한 것이니 그 세션을 그대로 돌려주면 된다.
+     * 이 비교는 여기서 대신 해 줄 수 없다 — 저장소가 원자적인지, 잠금이 있는지는
+     * 저장소를 만든 쪽만 안다. 만료된 sid 는 이 클래스만 알고 있으므로 넘겨만 준다.
+     *
+     * ```php
+     * $connection->onSessionExpired(fn (string $staleSid): Session => $lock->block(5, function () use ($staleSid, $store, $authenticator) {
+     *     $current = $store->get();
+     *
+     *     // 다른 프로세스가 이미 갈아끼웠다. 또 로그인하면 그쪽 세션을 107 로 끊는다.
+     *     return $current && $current->sid !== $staleSid ? $current : $authenticator->refresh();
+     * }));
+     * ```
+     *
+     * **콜백 안에서 `$store->forget()` 을 먼저 부르면 안 된다.** 버리는 순서는
+     * `Authenticator::refresh()` 가 지킨다 — 그쪽은 저장소에 남은 세션에서 device token
+     * 을 챙긴 **다음에** 버린다. 미리 비워 두면 그 조회가 빈 저장소를 읽고, 2단계 인증이
+     * 강제된 계정에서 재로그인이 OTP 를 요구해 실패한다.
+     *
+     * @param  Closure(string): Session  $reauthenticate  만료된 sid 를 받아 쓸 수 있는
+     *                                                    세션을 돌려주는 콜백
      */
     public function onSessionExpired(Closure $reauthenticate): self
     {
@@ -155,12 +176,16 @@ final class Connection implements ConnectionContract
     /**
      * 새 세션으로 갈아끼운 요청.
      *
+     * 콜백에 **만료된 sid** 를 넘긴다. 저장소를 공유하는 소비자가 "그 사이 다른
+     * 프로세스가 이미 갱신했는지" 를 판단할 수 있는 유일한 값이고, 여기 말고는
+     * 아무도 들고 있지 않다(`shouldReauthenticate()` 가 이미 존재를 보장한다).
+     *
      * @param  array<string, mixed>  $request
      * @return array<string, mixed>
      */
     private function reissue(array $request): array
     {
-        $session = ($this->reauthenticate)();
+        $session = ($this->reauthenticate)((string) $request['_sid']);
 
         $request['_sid'] = $session->sid;
 
