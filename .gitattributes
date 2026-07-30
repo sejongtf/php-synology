@@ -1,0 +1,28 @@
+# 배포물에서 뺄 것들.
+#
+# `composer install` 은 기본이 --prefer-dist 라 GitHub 이 만든 아카이브를 받는데,
+# 그 아카이브는 이 파일을 따른다. 여기 적힌 경로는 소비자의 vendor/ 에 들어가지 않는다.
+# 저장소에서는 그대로 있다 — 지우는 게 아니라 "배포에는 필요 없다" 는 표시다.
+#
+# 판단 기준은 **런타임에 쓰이는가** 하나다. src/ 밖에서 살아남는 건 소비자가 읽을
+# 문서(README 두 벌, CHANGELOG, LICENSE)와 composer.json 뿐이다.
+#
+# resources/registry 는 런타임에 로드되지 않는다(읽는 건 tools/ 와 tests/ 뿐이라
+# 확인했다). 그 덤프는 특정 시점·특정 NAS 의 스냅샷이라 배포물에 넣어 두면
+# 계약처럼 읽히기 쉽고, 실제 답은 `$syno->discover()` 가 준다.
+#
+# 새 태그부터 적용된다. 이미 찍힌 태그의 아카이브는 그 시점 트리에 이 파일이
+# 없었으므로 그대로다.
+
+/.github            export-ignore
+/resources          export-ignore
+/tests              export-ignore
+/tools              export-ignore
+
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/phpunit.xml.dist   export-ignore
+
+# 에이전트용 컨텍스트 파일. 이 저장소를 고칠 때만 쓴다.
+/AGENTS.md          export-ignore
+/CLAUDE.md          export-ignore
