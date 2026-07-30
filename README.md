@@ -293,10 +293,11 @@ response to hold.
 | MailPlusServer | `$syno->mail_plus_server` | 14 |
 | Personal | `$syno->application` `$syno->mail_account` `$syno->notification` `$syno->profile` | 16 |
 
-`resources/registry/` holds dumps of the API list DSM actually advertises (names, versions,
-methods). If an API you need is missing, `tools/generate-apis.php` can generate the class. Of
-MailPlusServer's 65 APIs most are administrative internals, so only the ones in use are
-included.
+[`resources/registry/`](resources/registry) **in the repository** holds dumps of the API list
+DSM actually advertises (names, versions, methods) — it is dev-time reference data, so it is
+not part of the installed package. If an API you need is missing, `tools/generate-apis.php`
+generates the class from those dumps. Of MailPlusServer's 65 APIs most are administrative
+internals, so only the ones in use are included.
 
 **Those dumps are a snapshot of one NAS at one moment.** The files were taken at different
 times and none of them records which DSM version it came from. A DSM upgrade can add API
@@ -378,6 +379,9 @@ constraints; the last two are the division of labour with this package.
   shared store can tell a stale session from one another process already replaced.
 
 ## Tests
+
+From a clone — the test suite, like the codegen and the registry dumps, is not shipped with the
+installed package.
 
 ```bash
 composer install

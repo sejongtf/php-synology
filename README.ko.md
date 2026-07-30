@@ -285,8 +285,10 @@ DSM 은 오류 코드 표를 여러 벌 쓰고 숫자가 겹칩니다(로그인 
 | MailPlusServer | `$syno->mail_plus_server` | 14 |
 | Personal | `$syno->application` `$syno->mail_account` `$syno->notification` `$syno->profile` | 16 |
 
-`resources/registry/` 에 DSM 이 실제로 광고하는 API 목록(이름·버전·메서드)이 덤프돼
-있습니다. 필요한 API 가 빠져 있으면 `tools/generate-apis.php` 로 클래스를 생성할 수 있습니다.
+**저장소의** [`resources/registry/`](resources/registry) 에 DSM 이 실제로 광고하는 API
+목록(이름·버전·메서드)이 덤프돼 있습니다. 개발할 때 참고하는 자료라 설치되는 패키지에는
+들어 있지 않습니다. 필요한 API 가 빠져 있으면 그 덤프로 `tools/generate-apis.php` 가
+클래스를 생성합니다.
 MailPlusServer 는 65개 중 대부분이 관리자용 내부 API 라 쓰는 것만 골라 두었습니다.
 
 **이 덤프는 특정 시점·특정 NAS 의 스냅샷입니다.** 파일마다 뜬 시기가 다르고 어느 DSM
@@ -367,6 +369,9 @@ api=SYNO.Contacts.Contact&version=2&method=list&addressbook_id=3&_sid=…
   구분하라고 있는 값입니다.
 
 ## 테스트
+
+저장소를 클론해서 돌립니다. 테스트 스위트는 코드젠·레지스트리 덤프와 마찬가지로 설치되는
+패키지에 들어 있지 않습니다.
 
 ```bash
 composer install
