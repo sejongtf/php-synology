@@ -138,12 +138,15 @@ $syno = Synology::connect($url, 'user', 'pass',
 로그인하려 듭니다. DSM 은 같은 계정이 두 번 로그인하면 앞의 세션을 끊으므로(그게 107)
 재로그인이 몰리면 서로가 서로를 무효화합니다.
 
-재시도를 직접 가져가면 막을 수 있습니다. `Http\Connection::onSessionExpired()` 는 기본
-콜백을 갈아끼우고, 콜백은 **방금 실패한 요청에 실려 있던 sid** 를 받습니다. 다른 쪽이 이미
-갱신했는지 알려 주는 값은 그것뿐입니다. 저장소의 sid 가 그와 다르면 그 세션을 쓰면 됩니다.
+재시도를 직접 가져가면 막을 수 있습니다. `connect()` 가 걸어 두는 콜백은 그냥 다시
+로그인하기만 합니다 — 기본값인 프로세스 메모리 저장소에는 그게 맞고, 공유 저장소에는
+맞지 않습니다. 그렇다고 `connect()` 를 버리고 직접 조립할 필요는 없습니다. 이미 받아 둔
+인스턴스에 `Http\Connection::onSessionExpired()` 를 부르면 콜백이 갈립니다. 새로 건 콜백은
+**방금 실패한 요청에 실려 있던 sid** 를 받습니다. 다른 쪽이 이미 갱신했는지 알려 주는 값은
+그것뿐입니다. 저장소의 sid 가 그와 다르면 그 세션을 쓰면 됩니다.
 
 ```php
-$connection = $syno->connection();
+$connection = $syno->connection();      // connect() 가 만든 Http\Connection
 $auth = $syno->authenticator();
 
 $connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
@@ -154,6 +157,9 @@ $connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function 
     return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
 }));
 ```
+
+`onSessionExpired()` 는 `Contracts\Connection` 이 아니라 `Http\Connection` 에 있습니다.
+`connect()` 가 만드는 게 그것이지만, 정적 분석을 돌린다면 `instanceof` 로 좁혀 주세요.
 
 **그 안에서 `$store->forget()` 을 부르면 안 됩니다.** 저장소를 비우는 건
 `Authenticator::refresh()` 가 하고, 만료된 세션에서 device token 을 읽은 **다음**에 합니다.

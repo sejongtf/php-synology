@@ -116,6 +116,13 @@ final class Synology
      * 서비스 컨테이너 부팅 중에 로그인이 발생해 곤란해진다.
      *
      * @param  SessionStore|null  $store  세션을 둘 곳. 생략하면 프로세스 메모리.
+     *                                    **여러 프로세스가 공유하는 저장소를 넘긴다면**
+     *                                    아래에서 거는 만료 재시도 콜백을 갈아끼우는 게
+     *                                    좋다. 기본 콜백은 그냥 다시 로그인할 뿐이라,
+     *                                    동시에 만료를 만난 프로세스들이 서로의 세션을
+     *                                    107 로 끊는다. `connection()->onSessionExpired()`
+     *                                    로 덮어쓰면 되고(만료된 sid 를 받는다), 그 판단에
+     *                                    필요한 잠금 정책은 저장소를 만든 쪽만 안다.
      */
     public static function connect(
         string $url,

@@ -141,13 +141,16 @@ together, and each one that notices will try to log in again. DSM cuts the previ
 when the same account logs in twice (that is error 107), so a stampede of re-logins keeps
 invalidating each other.
 
-Take over the retry to stop that. `Http\Connection::onSessionExpired()` replaces the default
-callback, and it is handed **the sid that was on the request that just failed** — the one value
+Take over the retry to stop that. `connect()` installs a callback that simply logs in again,
+which is right for the in-process store it defaults to and wrong for a shared one — but you do
+not have to give up `connect()` and wire the client by hand to change it. Call
+`Http\Connection::onSessionExpired()` on the instance you already have and it replaces the
+callback. Yours is handed **the sid that was on the request that just failed** — the one value
 that tells you whether somebody else has already refreshed. If the store now holds a different
 sid, there is nothing to do but use it.
 
 ```php
-$connection = $syno->connection();
+$connection = $syno->connection();      // the Http\Connection connect() built
 $auth = $syno->authenticator();
 
 $connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
@@ -158,6 +161,9 @@ $connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function 
     return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
 }));
 ```
+
+`onSessionExpired()` sits on `Http\Connection`, not on `Contracts\Connection` — that is what
+`connect()` builds, so narrow with `instanceof` if you run static analysis.
 
 **Do not call `$store->forget()` in there.** `Authenticator::refresh()` clears the store itself,
 and it does so only after reading the device token off the expiring session. Emptying the store

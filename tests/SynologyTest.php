@@ -6,12 +6,16 @@ namespace Sejongtf\Synology\Tests;
 
 use InvalidArgumentException;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use Nyholm\Psr7\Response as PsrResponse;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Sejongtf\Synology\Auth\CallableStore;
 use Sejongtf\Synology\Auth\InMemoryStore;
 use Sejongtf\Synology\Auth\Session;
 use Sejongtf\Synology\Exceptions\AuthException;
+use Sejongtf\Synology\Http\Connection;
 use Sejongtf\Synology\Services\Chat\Chat;
 use Sejongtf\Synology\Services\Contacts\Contacts;
 use Sejongtf\Synology\Synology;
@@ -406,6 +410,61 @@ class SynologyTest extends TestCase
 
         $this->assertCount(4, $http->requests);
         $this->assertFalse($response->success());
+    }
+
+    /**
+     * 공유 저장소를 쓰는 소비자는 **`connect()` 를 버리지 않고** 재시도만 가져갈 수 있어야
+     * 한다. 여기서 다시 로그인하면 이미 갱신해 둔 다른 프로세스의 세션을 107 로 끊는다.
+     */
+    public function test_the_default_retry_can_be_replaced_on_a_connect_instance(): void
+    {
+        $shared = new InMemoryStore(new Session('SID_OLD', 'CSRF_OLD'));
+
+        // 첫 요청은 만료로 실패하고, 그 사이에 다른 프로세스가 공유 저장소를 갈아끼운다.
+        // 이 순서(요청이 나간 뒤, 콜백이 불리기 전)를 흉내내려면 응답 시점에 써야 한다.
+        $http = new class($shared) extends FakePsrClient
+        {
+            public function __construct(private readonly InMemoryStore $shared)
+            {
+                parent::__construct();
+            }
+
+            public function sendRequest(RequestInterface $request): ResponseInterface
+            {
+                if ($this->requests === []) {
+                    $this->requests[] = $request;
+                    $this->shared->put(new Session('SID_NEW', 'CSRF_NEW'));
+
+                    return new PsrResponse(200, ['Content-Type' => 'application/json'],
+                        '{"success":false,"error":{"code":106}}');
+                }
+
+                return parent::sendRequest($request);
+            }
+        };
+
+        $syno = Synology::connect(
+            self::URL, 'user', 'pass', store: $shared, http: $http, requests: new Psr17Factory,
+        );
+
+        $connection = $syno->connection();
+        $this->assertInstanceOf(Connection::class, $connection);
+
+        $connection->onSessionExpired(
+            fn (string $staleSid): Session => ($current = $shared->get())->sid !== $staleSid
+                ? $current                                  // 이미 갱신됐다. 로그인하지 않는다.
+                : $syno->authenticator()->refresh(),
+        );
+
+        $syno->contacts->info->get_timezone();
+
+        // 로그인 요청이 한 번도 나가면 안 된다.
+        $this->assertSame(
+            ['SYNO.Contacts.Info', 'SYNO.Contacts.Info'],
+            $http->calledApis(),
+        );
+        $this->assertSame('SID_NEW', $http->lastBody()['_sid']);
+        $this->assertSame('CSRF_NEW', $http->lastQuery()['SynoToken']);
     }
 
     /**
