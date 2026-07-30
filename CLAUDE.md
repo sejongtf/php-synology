@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **`README.md` is the consumer-facing doc** — installation, the three ways to get a session, the calling convention, error handling. Read it for how the library is *used*; this file is only what you need to *change* it. When behaviour changes, both move.
 
-`README.ko.md` is the Korean translation of `README.md` and the two are kept in sync **in the same commit** — English is the source, Korean follows it. Nothing links to it but `README.md`'s header line, so a translation left behind goes unnoticed. No other file changes language: code comments stay Korean (see Conventions), this file stays English.
+`README.ko.md` is the Korean translation of `README.md` and the two are kept in sync **in the same commit** — English is the source, Korean follows it. Nothing links to it but `README.md`'s header line, so a translation left behind goes unnoticed. No other file changes language: code comments stay Korean (see Conventions), this file stays English. `CHANGELOG.md` has **no** Korean twin.
+
+**`CHANGELOG.md` is written for the consumer, not for the log.** The audience re-reads the package on every bump, so an entry says what changed *for a caller* and what to do about it — the failure it fixes, the call that replaces a removed one — not which files moved. Add to `## [Unreleased]` as the change lands; on release, rename that heading to the version with its date and add the compare link at the bottom. `git log` is not a substitute: the commit messages are written for whoever changes this code, which is the opposite reader.
 
 ## What this is
 

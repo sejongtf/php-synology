@@ -400,6 +400,10 @@ CI runs the unit tests on PHP 8.2/8.3/8.4 and once more against the lowest depen
 
 ## Anything else
 
+[CHANGELOG.md](CHANGELOG.md) records what changed in each release and what it means for a
+consumer. In `0.x` **the minor is the breaking bump** — the axis Composer's `^0.2` already
+uses — so a patch is safe to take.
+
 If you are going to change the code, [CLAUDE.md](CLAUDE.md) lays out the structure and the
 design intent behind it.
 
