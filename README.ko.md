@@ -60,7 +60,10 @@ $syno = Synology::withSession($url, $sid, $http, $requestFactory, $streamFactory
 
 ## 세션 얻기
 
-세 가지 방법이 있고 **셋 다 동등합니다. 로그인은 그중 하나일 뿐입니다.**
+세 가지 방법이 있고 **셋 다 동등합니다. 로그인은 그중 하나일 뿐입니다.** 아래에 한 줄짜리
+생성자가 각각 있고, 셋 다 속으로는 같은 빌더입니다. 생성자 인자로 표현되지 않는 걸 설정해야
+하면 `Synology::to($url)` 로 그 빌더를 직접 씁니다 —
+[로그인 잠그기](#여러-프로세스가-세션-하나를-나눠-쓸-때)가 대표적입니다.
 
 ### 이미 가진 sid 주입하기
 
@@ -135,36 +138,55 @@ $syno = Synology::connect($url, 'user', 'pass',
 ### 여러 프로세스가 세션 하나를 나눠 쓸 때
 
 저장소를 공유하면 세션도 공유되지만, 만료도 같이 옵니다 — 알아챈 프로세스마다 다시
-로그인하려 듭니다. DSM 은 같은 계정이 두 번 로그인하면 앞의 세션을 끊으므로(그게 107)
+로그인합니다. DSM 은 같은 계정이 두 번 로그인하면 앞의 세션을 끊으므로(그게 107)
 재로그인이 몰리면 서로가 서로를 무효화합니다.
 
-재시도를 직접 가져가면 막을 수 있습니다. `connect()` 가 걸어 두는 콜백은 그냥 다시
-로그인하기만 합니다 — 기본값인 프로세스 메모리 저장소에는 그게 맞고, 공유 저장소에는
-맞지 않습니다. 그렇다고 `connect()` 를 버리고 직접 조립할 필요는 없습니다. 이미 받아 둔
-인스턴스에 `Http\Connection::onSessionExpired()` 를 부르면 콜백이 갈립니다. 새로 건 콜백은
-**방금 실패한 요청에 실려 있던 sid** 를 받습니다. 다른 쪽이 이미 갱신했는지 알려 주는 값은
-그것뿐입니다. 저장소의 sid 가 그와 다르면 그 세션을 쓰면 됩니다.
+로그인이 시작되는 자리는 둘이고, 공유 저장소라면 둘 다 잠금 아래 들어가야 합니다. 그
+두 자리는 `Synology::to()` 로 조립하면 닿습니다. 위의 짧은 생성자들이 쓰는 바로 그
+빌더라서, 나머지는 달라지지 않습니다.
 
 ```php
-$connection = $syno->connection();      // connect() 가 만든 Http\Connection
-$auth = $syno->authenticator();
+use Closure;
+use Sejongtf\Synology\Auth\Authenticator;
 
-$connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
-    $current = $store->get();
+$syno = Synology::to($url)
+    ->credentials('user', 'pass')
+    ->store($shared)
 
-    // 잠금을 기다리는 사이에 다른 쪽이 갱신했다. 여기서 또 로그인하면
-    // 그쪽 세션만 끊는 꼴이다.
-    return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
-}));
+    // (1) 콜드 스타트 — 저장소가 비어 있어 누군가는 로그인해야 한다
+    ->onLogin(fn (Closure $login) => $lock->block(5, fn () => $shared->get() ?? $login()))
+
+    // (2) 쓰던 세션이 중간에 죽었다(106/107/119)
+    ->onSessionExpired(fn (string $staleSid, Authenticator $auth) => $lock->block(5, function () use ($staleSid, $auth, $shared) {
+        $current = $shared->get();
+
+        return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
+    }))
+
+    ->connect();
 ```
 
-`onSessionExpired()` 는 `Contracts\Connection` 이 아니라 `Http\Connection` 에 있습니다.
-`connect()` 가 만드는 게 그것이지만, 정적 분석을 돌린다면 `instanceof` 로 좁혀 주세요.
+두 콜백은 모양이 같습니다 — 잠그고, 다시 보고, 아무도 안 했을 때만 합니다. 다른 건 "다시
+보는" 방법입니다. 콜드 스타트는 비교할 대상이 없으니 "아직도 비어 있나" 가 전부입니다.
+만료 쪽은 **방금 실패한 요청에 실려 있던 sid** 를 받고, 저장소에 다른 sid 가 들어 있다면
+잠금을 기다리는 사이 다른 프로세스가 갱신한 것입니다 — 여기서 또 로그인하면 그쪽 세션만
+끊는 꼴입니다.
 
-**그 안에서 `$store->forget()` 을 부르면 안 됩니다.** 저장소를 비우는 건
-`Authenticator::refresh()` 가 하고, 만료된 세션에서 device token 을 읽은 **다음**에 합니다.
-미리 비워 두면 그 조회가 빈 저장소를 읽고, 2단계 인증이 강제된 계정에서는 재로그인이
-OTP 를 요구해 실패합니다.
+둘 중 하나를 빼면 기본값이 갑니다(로그인, 또는 `Authenticator::refresh()`). 짧은 생성자들이
+쓰는 프로세스 메모리 저장소에는 그게 맞습니다 — 경쟁할 상대가 없으니까요.
+
+**콜드 스타트를 막는 건 `onLogin` 뿐입니다.** 그 자리에서는 만료 콜백이 아예 불리지
+않습니다. 만료될 세션이 없었으니까요. 공유 저장소가 비는 순간이 바로 그때입니다 — 캐시
+TTL 만료, 배포로 인한 캐시 클리어, 캐시 서버 재시작. 그리고 워커 전부가 동시에 그리로
+들어갑니다.
+
+이 콜백들 안에서 하지 말아야 할 것이 둘 있습니다.
+
+- **`$store->forget()` 을 부르지 마세요.** 저장소를 비우는 건 `Authenticator::refresh()` 가
+  하고, 만료된 세션에서 device token 을 읽은 **다음**에 합니다. 미리 비우면 그 조회가 빈
+  저장소를 읽고, 2단계 인증이 강제된 계정에서는 재로그인이 OTP 를 요구해 실패합니다.
+- **대신 직접 만든 저장소의 `get()` 에서 로그인하지 마세요.** `refresh()` 가 그 device
+  token 을 찾으려고 `get()` 을 부르므로, 재인증 한 번에 로그인이 두 번 나갑니다.
 
 ## 호출하기
 

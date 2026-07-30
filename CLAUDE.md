@@ -37,6 +37,7 @@ CI (`.github/workflows/tests.yml`) runs the unit suite on PHP 8.2/8.3/8.4 plus a
 ```
 src/
   Synology.php      entry point
+  Connector.php     the one place the client is assembled
   Api.php           base class for one DSM endpoint
   Service.php       base class for a group of endpoints
   Auth/             Session, SessionStore implementations (InMemory/Callable/Authenticating), Authenticator, Credentials
@@ -70,7 +71,7 @@ Two name pairs to keep straight:
 
 > **`Connection` is not a PSR-18 client** — it sits *above* one. It used to be called `Contracts\Client`/`Http\Client`, which made a consumer hand a PSR-18 `Client` to a `Client`, and made every file that touched both write `use ... as PsrClient`. `Http\Connection` also absorbed the old `Http\Transport`: its PSR-implementation lookups are now static methods (`psrClient()`, `requestFactory()`, `streamFactory()`) on the class they build.
 
-**Entry point** — `Synology` wires endpoint + session store + client and exposes services, accepting both `$syno->mail_account` and `$syno->mailAccount`. README documents the three constructors; what matters here is the asymmetry between them, below.
+**Entry point** — `Synology` exposes services, accepting both `$syno->mail_account` and `$syno->mailAccount`. It does not wire anything: `Connector` does, and `withSession()`/`withStore()`/`connect()` are three-line delegations to it (`Synology::to()` returns it). **Keep it that way.** The assembly order is what stops the lazy login from recursing (below), and four copies of it means one of them is wrong. README documents the three constructors; what matters here is the asymmetry between them, below.
 
 ### Wire format — every rule here was measured against real hardware
 
@@ -107,6 +108,10 @@ Two things stop that from recursing, and both are easy to break:
 
 - `Http\Connection::request()` checks `isset($request['_sid'])` **before** calling `sessions->get()`. Hoisting the store lookup above that check makes a bot-token call trigger the lazy login, and makes the login request itself re-enter the store. `SynologyTest::test_a_bot_token_api_never_triggers_the_lazy_login` pins it.
 - `Authenticator` is handed the **inner** store, not the decorator.
+
+**A login can start in two places, and `Connector` exposes both** — `onLogin()` wraps the cold start (`AuthenticatingStore`'s login closure), `onSessionExpired()` replaces the expiry retry. Consumers whose store is shared across processes need both under one lock, and the two are not interchangeable: the expiry callback never fires on a cold start, because there was no session to expire. That gap is what sent the last consumer to hand-assemble the client. Neither hook is a lock — the package never picks one; it only makes the seam reachable.
+
+`onLogin` without credentials throws: nothing would ever call it, and silently accepting it leaves a consumer believing the login is serialized when it isn't. `onSessionExpired` without credentials is fine and useful — it is the only way a `withStore()`-style client can handle 106/107/119 at all. Its callback takes `(string $staleSid, ?Authenticator $auth)`; the second argument exists because the `Authenticator` does not exist until the client is built, and PHP lets a one-arg closure be passed where two are given, so the simple case stays simple.
 
 **`Authenticator` holds two pieces of mutable state, and both exist for 2FA.** `Credentials` is immutable and stays that way; these live on the authenticator because they change with each login.
 

@@ -62,7 +62,10 @@ install is thrown, again at construction time.
 
 ## Getting a session
 
-There are three ways, and **all three are equal. Logging in is merely one of them.**
+There are three ways, and **all three are equal. Logging in is merely one of them.** Each has a
+one-line constructor below; all three are the same builder underneath, which you can reach with
+`Synology::to($url)` when there is something to configure that a constructor argument cannot
+express — [locking the login](#sharing-one-session-across-processes), most of all.
 
 ### Inject a sid you already have
 
@@ -137,38 +140,58 @@ $syno = Synology::connect($url, 'user', 'pass',
 ### Sharing one session across processes
 
 Point several workers at the same store and they share a session — but they also expire
-together, and each one that notices will try to log in again. DSM cuts the previous session
-when the same account logs in twice (that is error 107), so a stampede of re-logins keeps
-invalidating each other.
+together, and each one that notices will log in again. DSM cuts the previous session when the
+same account logs in twice (that is error 107), so a stampede of re-logins keeps invalidating
+each other.
 
-Take over the retry to stop that. `connect()` installs a callback that simply logs in again,
-which is right for the in-process store it defaults to and wrong for a shared one — but you do
-not have to give up `connect()` and wire the client by hand to change it. Call
-`Http\Connection::onSessionExpired()` on the instance you already have and it replaces the
-callback. Yours is handed **the sid that was on the request that just failed** — the one value
-that tells you whether somebody else has already refreshed. If the store now holds a different
-sid, there is nothing to do but use it.
+A login can start in two places, and a shared store needs both under your lock. Assemble the
+client with `Synology::to()` to reach them; it is the builder the shortcut constructors above
+are made of, so nothing else changes.
 
 ```php
-$connection = $syno->connection();      // the Http\Connection connect() built
-$auth = $syno->authenticator();
+use Closure;
+use Sejongtf\Synology\Auth\Authenticator;
 
-$connection->onSessionExpired(fn (string $staleSid) => $lock->block(5, function () use ($staleSid, $store, $auth) {
-    $current = $store->get();
+$syno = Synology::to($url)
+    ->credentials('user', 'pass')
+    ->store($shared)
 
-    // Somebody else refreshed while we were waiting for the lock. Logging in again
-    // here would only cut their session loose.
-    return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
-}));
+    // (1) cold start — the store is empty and somebody has to log in
+    ->onLogin(fn (Closure $login) => $lock->block(5, fn () => $shared->get() ?? $login()))
+
+    // (2) the session died mid-flight (106/107/119)
+    ->onSessionExpired(fn (string $staleSid, Authenticator $auth) => $lock->block(5, function () use ($staleSid, $auth, $shared) {
+        $current = $shared->get();
+
+        return $current && $current->sid !== $staleSid ? $current : $auth->refresh();
+    }))
+
+    ->connect();
 ```
 
-`onSessionExpired()` sits on `Http\Connection`, not on `Contracts\Connection` — that is what
-`connect()` builds, so narrow with `instanceof` if you run static analysis.
+Both callbacks have the same shape — take the lock, look again, and do the work only if nobody
+beat you to it. What differs is the second look. A cold start has nothing to compare against,
+so "is the store still empty?" is the whole test. An expiry is handed **the sid that was on the
+request that just failed**, and a store that now holds a different one means another process
+refreshed while you waited for the lock; logging in again would only cut that one loose.
 
-**Do not call `$store->forget()` in there.** `Authenticator::refresh()` clears the store itself,
-and it does so only after reading the device token off the expiring session. Emptying the store
-first makes that read come up blank, and on an account with enforced 2FA the re-login then asks
-for an OTP and fails.
+Leave either out and you get the default — log in, or `Authenticator::refresh()` — which is
+right for the process-memory store the shortcuts default to, where there is nobody to race.
+
+**`onLogin` is the only cover for the cold start.** The expiry callback never fires there,
+because there was no session to expire. It is the moment a shared store comes up empty: the
+cache TTL lapses, a deploy clears it, the cache server restarts — and every worker walks into
+it at once.
+
+Two things not to do inside these callbacks:
+
+- **Don't call `$store->forget()`.** `Authenticator::refresh()` clears the store itself, and
+  only after reading the device token off the expiring session. Emptying it first makes that
+  read come up blank, and on an account with enforced 2FA the re-login then asks for an OTP
+  and fails.
+- **Don't move the login into your own store's `get()` instead.** `refresh()` calls `get()` to
+  find that same device token, so a store that logs in there sends two logins for one
+  re-authentication.
 
 ## Making calls
 

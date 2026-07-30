@@ -8,15 +8,11 @@ use InvalidArgumentException;
 use Psr\Http\Client\ClientInterface as PsrClient;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
-use Sejongtf\Synology\Auth\AuthenticatingStore;
 use Sejongtf\Synology\Auth\Authenticator;
-use Sejongtf\Synology\Auth\Credentials;
-use Sejongtf\Synology\Auth\InMemoryStore;
 use Sejongtf\Synology\Auth\Session;
 use Sejongtf\Synology\Contracts\Connection as ConnectionContract;
 use Sejongtf\Synology\Contracts\SessionStore;
 use Sejongtf\Synology\Http\Connection;
-use Sejongtf\Synology\Http\Endpoint;
 use Sejongtf\Synology\Registry\ApiRegistry;
 use Sejongtf\Synology\Services\Api\Info;
 
@@ -38,6 +34,9 @@ use Sejongtf\Synology\Services\Api\Info;
  * // (C) 자격증명으로 로그인한다. 실제 로그인은 첫 요청 때 일어난다.
  * $syno = Synology::connect($url, 'user', 'pass', otpCode: '123456');
  * ```
+ *
+ * 셋 다 `to()` 가 돌려주는 `Connector` 로 조립된다. 로그인 자리를 잠그거나(`onLogin()`)
+ * 만료 재시도를 갈아끼우는(`onSessionExpired()`) 등 손댈 게 있으면 그쪽을 직접 쓴다.
  *
  * @property \Sejongtf\Synology\Services\Chat\Chat $chat
  * @property \Sejongtf\Synology\Services\Calendar\Calendar $calendar
@@ -67,9 +66,22 @@ final class Synology
     /** @var array<string, Service> */
     private array $resolved = [];
 
-    private ?Authenticator $authenticator = null;
+    public function __construct(
+        private readonly ConnectionContract $connection,
+        private readonly ?Authenticator $authenticator = null,
+    ) {}
 
-    public function __construct(private readonly ConnectionContract $connection) {}
+    /**
+     * 조립을 시작한다. 아래 정적 메서드들로 모자랄 때 쓴다.
+     *
+     * ```php
+     * $syno = Synology::to($url)->credentials('user', 'pass')->store($shared)->connect();
+     * ```
+     */
+    public static function to(string $url): Connector
+    {
+        return Connector::to($url);
+    }
 
     /**
      * 이미 갖고 있는 세션으로 시작한다. 로그인하지 않는다.
@@ -83,9 +95,10 @@ final class Synology
         ?RequestFactoryInterface $requests = null,
         ?StreamFactoryInterface $streams = null,
     ): self {
-        $session = is_string($session) ? new Session($session) : $session;
-
-        return self::withStore($url, new InMemoryStore($session), $http, $requests, $streams);
+        return self::to($url)
+            ->session($session)
+            ->http($http, $requests, $streams)
+            ->connect();
     }
 
     /**
@@ -98,15 +111,10 @@ final class Synology
         ?RequestFactoryInterface $requests = null,
         ?StreamFactoryInterface $streams = null,
     ): self {
-        $requests = Connection::requestFactory($requests);
-
-        return new self(new Connection(
-            Connection::psrClient($http),
-            $requests,
-            Connection::streamFactory($streams, $requests),
-            new Endpoint($url),
-            $store,
-        ));
+        return self::to($url)
+            ->store($store)
+            ->http($http, $requests, $streams)
+            ->connect();
     }
 
     /**
@@ -116,13 +124,12 @@ final class Synology
      * 서비스 컨테이너 부팅 중에 로그인이 발생해 곤란해진다.
      *
      * @param  SessionStore|null  $store  세션을 둘 곳. 생략하면 프로세스 메모리.
-     *                                    **여러 프로세스가 공유하는 저장소를 넘긴다면**
-     *                                    아래에서 거는 만료 재시도 콜백을 갈아끼우는 게
-     *                                    좋다. 기본 콜백은 그냥 다시 로그인할 뿐이라,
-     *                                    동시에 만료를 만난 프로세스들이 서로의 세션을
-     *                                    107 로 끊는다. `connection()->onSessionExpired()`
-     *                                    로 덮어쓰면 되고(만료된 sid 를 받는다), 그 판단에
-     *                                    필요한 잠금 정책은 저장소를 만든 쪽만 안다.
+     *                                    **여러 프로세스가 공유하는 저장소라면 이 메서드로는
+     *                                    부족하다.** 로그인이 겹칠 수 있는 자리가 둘인데
+     *                                    (세션이 빌 때, 만료돼 다시 받을 때) 여기서는 둘 다
+     *                                    기본값으로 고정된다. `to($url)` 로 조립하면서
+     *                                    `Connector::onLogin()`/`onSessionExpired()` 를
+     *                                    쓰면 그 두 자리를 소비자 잠금으로 감쌀 수 있다.
      */
     public static function connect(
         string $url,
@@ -138,38 +145,15 @@ final class Synology
         ?RequestFactoryInterface $requests = null,
         ?StreamFactoryInterface $streams = null,
     ): self {
-        $store ??= new InMemoryStore;
-        $credentials = new Credentials(
-            $account, $passwd, $session, $otpCode, $deviceId, $deviceName, $rememberDevice,
-        );
+        $connector = self::to($url)
+            ->credentials($account, $passwd, $otpCode, $session, $deviceId, $deviceName, $rememberDevice)
+            ->http($http, $requests, $streams);
 
-        // 로그인 자체는 아직 하지 않는다. 데코레이터가 세션이 빌 때 대신 불러 준다.
-        $authenticator = null;
-        $lazy = new AuthenticatingStore($store, function () use (&$authenticator) {
-            return $authenticator->login();
-        });
+        if ($store !== null) {
+            $connector->store($store);
+        }
 
-        $requests = Connection::requestFactory($requests);
-
-        $connection = new Connection(
-            Connection::psrClient($http),
-            $requests,
-            Connection::streamFactory($streams, $requests),
-            new Endpoint($url),
-            $lazy,
-        );
-
-        // Authenticator 는 데코레이터가 아니라 안쪽 저장소를 쓴다(재귀 방지).
-        $authenticator = new Authenticator($connection, $store, $credentials);
-
-        // 자격증명이 있으므로 세션 만료(106/107/119) 시 한 번 다시 로그인할 수 있다.
-        // sid 만 주입한 경로에는 이 콜백이 없고, 따라서 재시도도 없다.
-        $connection->onSessionExpired(static fn (): Session => $authenticator->refresh());
-
-        $synology = new self($connection);
-        $synology->authenticator = $authenticator;
-
-        return $synology;
+        return $connector->connect();
     }
 
     public function connection(): ConnectionContract
